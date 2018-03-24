@@ -2,6 +2,12 @@ package com.masson.alex.jsonplaceholder.application;
 
 import android.app.Application;
 
+import com.masson.alex.jsonplaceholder.repository.album.IAlbumRepository;
+import com.masson.alex.jsonplaceholder.repository.comment.ICommentRepository;
+import com.masson.alex.jsonplaceholder.repository.photo.IPhotoRepository;
+import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
+import com.masson.alex.jsonplaceholder.repository.user.IUserRepository;
+
 /**
  * Created by alex on 24/03/2018.
  */
@@ -9,15 +15,39 @@ import android.app.Application;
 public class MyApplication extends Application {
 
     private static MyApplication INSTANCE ;
+    private IUserRepository userRepository;
+    private IAlbumRepository albumRepository;
+    private IPostRepository postRepository;
+    private IPhotoRepository photoRepository;
+    private ICommentRepository commentRepository;
     @Override
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
+        //TODO : init repositories
     }
 
     public static MyApplication app(){
         return INSTANCE;
     }
 
+    public IUserRepository getUserRepository() {
+        return userRepository;
+    }
 
+    public IAlbumRepository getAlbumRepository() {
+        return albumRepository;
+    }
+
+    public IPostRepository getPostRepository() {
+        return postRepository;
+    }
+
+    public IPhotoRepository getPhotoRepository() {
+        return photoRepository;
+    }
+
+    public ICommentRepository getCommentRepository() {
+        return commentRepository;
+    }
 }
