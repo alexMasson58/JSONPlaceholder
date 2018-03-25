@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.masson.alex.jsonplaceholder.R;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.User;
+import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
 import butterknife.BindView;
@@ -25,6 +26,8 @@ import butterknife.ButterKnife;
  */
 public class UserListActivityFragment extends Fragment implements UserListPresenter.View, SwipeRefreshLayout.OnRefreshListener, UserRecyclerAdapter.ItemClickListener {
 
+
+    public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
 
     @BindView(R.id.rec_userlist)
     RecyclerView recyclerView;
@@ -54,7 +57,7 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserListPresenter(this, MyApplication.app().getUserRepository(), this);
+        presenter = new UserListPresenter(MyApplication.app().getUserRepository(), this);
         adapter = new UserRecyclerAdapter(this, presenter.getUserList());
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -75,8 +78,8 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
     @Override
     public void displayUserProfile(UserViewModel u) {
-       // Intent i = new Intent(this,UserProfileActivity.class);
-
+        Intent i = new Intent(getActivity(), UserProfileActivity.class);
+        i.putExtra(USERPROFILE_EXTRA, u);
     }
 
 

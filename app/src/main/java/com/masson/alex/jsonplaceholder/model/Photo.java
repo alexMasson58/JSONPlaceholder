@@ -1,10 +1,12 @@
 package com.masson.alex.jsonplaceholder.model;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 24/03/2018.
  */
 
-public class Photo {
+public class Photo implements Serializable{
     private int albumId;
     private int id;
     private String title;

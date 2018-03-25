@@ -1,10 +1,12 @@
 package com.masson.alex.jsonplaceholder.model;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 24/03/2018.
  */
 
-public class Geo {
+public class Geo implements Serializable{
     private double lat;
     private double lng;
 

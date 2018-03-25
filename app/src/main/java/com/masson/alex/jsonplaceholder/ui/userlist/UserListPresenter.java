@@ -19,12 +19,10 @@ public class UserListPresenter {
     private final IUserRepository userRepository;
     private View view;
     private List<User> userlist;
-    LifecycleOwner lifecycleOwner;
 
-    public UserListPresenter(LifecycleOwner lifecycleOwner, IUserRepository userRepository, View v) {
+    public UserListPresenter( IUserRepository userRepository, View v) {
         this.userRepository = userRepository;
         this.view = v;
-        this.lifecycleOwner = lifecycleOwner;
     }
 
     public List<UserListViewModel> getUserList() {

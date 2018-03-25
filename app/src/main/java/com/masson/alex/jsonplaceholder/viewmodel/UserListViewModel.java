@@ -1,14 +1,12 @@
 package com.masson.alex.jsonplaceholder.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
-
 import com.masson.alex.jsonplaceholder.model.User;
 
 /**
  * Created by alex on 25/03/2018.
  */
 
-public class UserListViewModel extends ViewModel {
+public class UserListViewModel{
 
 
     private String name;

@@ -1,10 +1,12 @@
 package com.masson.alex.jsonplaceholder.model;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 24/03/2018.
  */
 
-public class Address {
+public class Address implements Serializable {
     private String street;
     private String suite;
     private String city;

@@ -4,11 +4,13 @@ import com.masson.alex.jsonplaceholder.model.Address;
 import com.masson.alex.jsonplaceholder.model.Compagny;
 import com.masson.alex.jsonplaceholder.model.User;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 25/03/2018.
  */
 
-public class UserViewModel {
+public class UserViewModel implements Serializable {
     private int id;
     private String name;
     private String username;

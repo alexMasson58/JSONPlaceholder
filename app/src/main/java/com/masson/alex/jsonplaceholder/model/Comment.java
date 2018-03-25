@@ -1,10 +1,12 @@
 package com.masson.alex.jsonplaceholder.model;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 24/03/2018.
  */
 
-public class Comment {
+public class Comment implements Serializable{
     private int postId;
     private int id;
     private String name;
