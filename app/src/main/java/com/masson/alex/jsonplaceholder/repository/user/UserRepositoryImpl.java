@@ -5,6 +5,7 @@ import com.masson.alex.jsonplaceholder.network.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import retrofit2.Call;
 import retrofit2.Callback;

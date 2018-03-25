@@ -7,6 +7,7 @@ import com.masson.alex.jsonplaceholder.repository.comment.ICommentRepository;
 import com.masson.alex.jsonplaceholder.repository.photo.IPhotoRepository;
 import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
 import com.masson.alex.jsonplaceholder.repository.user.IUserRepository;
+import com.masson.alex.jsonplaceholder.repository.user.UserRepositoryImpl;
 
 /**
  * Created by alex on 24/03/2018.
@@ -25,6 +26,7 @@ public class MyApplication extends Application {
         super.onCreate();
         INSTANCE = this;
         //TODO : init repositories
+        userRepository = new UserRepositoryImpl();
     }
 
     public static MyApplication app(){

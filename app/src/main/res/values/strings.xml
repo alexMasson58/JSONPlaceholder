@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JSONPlaceholder</string>
+    <string name="title_activity_user_list">UserListActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

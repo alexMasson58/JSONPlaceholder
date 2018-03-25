@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="cell_size_normal">64dp</dimen>
+    <dimen name="text_primary">18sp</dimen>
+    <dimen name="text_secondary">12sp</dimen>
+    <dimen name="cell_padding_horizontal">8dp</dimen>
+</resources>
