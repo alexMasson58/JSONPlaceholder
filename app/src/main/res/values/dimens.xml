@@ -4,4 +4,7 @@
     <dimen name="text_primary">18sp</dimen>
     <dimen name="text_secondary">12sp</dimen>
     <dimen name="cell_padding_horizontal">8dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

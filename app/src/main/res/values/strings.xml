@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">JSONPlaceholder</string>
-    <string name="title_activity_user_list">UserListActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_user_list">Utilisateurs</string>
+    <string name="action_settings">Options</string>
+    <string name="title_activity_user_profile">Profil</string>
+    <string name="title_albums">Albums</string>
+    <string name="title_posts">Posts</string>
 </resources>

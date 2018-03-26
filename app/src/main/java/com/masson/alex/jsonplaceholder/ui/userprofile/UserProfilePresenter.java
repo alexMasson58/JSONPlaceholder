@@ -1,5 +1,8 @@
 package com.masson.alex.jsonplaceholder.ui.userprofile;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.Album;
 import com.masson.alex.jsonplaceholder.model.Post;
@@ -18,23 +21,49 @@ import java.util.List;
  * Created by frup66058 on 26/03/2018.
  */
 
-public class UserProfilePresenter implements IAlbumRepository.IAlbumRepositoryListener, IPostRepository.IPostRepositoryListener {
+public class UserProfilePresenter implements Parcelable, IAlbumRepository.IAlbumRepositoryListener, IPostRepository.IPostRepositoryListener {
 
+    private final UserViewModel userViewModel;
     View view;
     IAlbumRepository albumRepository;
     IPostRepository postRepository;
     List<Post> posts;
     List<Album> albums;
 
-    public UserProfilePresenter(View view) {
+    public UserProfilePresenter(View view, UserViewModel userViewModel) {
         this.view = view;
         this.postRepository = MyApplication.app().getPostRepository();
         this.albumRepository = MyApplication.app().getAlbumRepository();
+        this.userViewModel = userViewModel;
     }
 
 
-    public void setView(View view) {
+    protected UserProfilePresenter(Parcel in) {
+        userViewModel = in.readParcelable(UserViewModel.class.getClassLoader());
+        posts = in.createTypedArrayList(Post.CREATOR);
+        albums = in.createTypedArrayList(Album.CREATOR);
+    }
+
+    public static final Creator<UserProfilePresenter> CREATOR = new Creator<UserProfilePresenter>() {
+        @Override
+        public UserProfilePresenter createFromParcel(Parcel in) {
+            return new UserProfilePresenter(in);
+        }
+
+        @Override
+        public UserProfilePresenter[] newArray(int size) {
+            return new UserProfilePresenter[size];
+        }
+    };
+
+    public void bind(View view) {
         this.view = view;
+        if(albums!=null){
+            albumsForUser(this.albums);
+        }
+        if(posts!=null){
+            postForUsers(this.posts);
+        }
     }
 
     public void getUserAlbums(int userid) {
@@ -53,14 +82,7 @@ public class UserProfilePresenter implements IAlbumRepository.IAlbumRepositoryLi
     @Override
     public void albumsForUser(List<Album> albums) {
         this.albums = albums;
-/*        ArrayList<UserListViewModel> res = new ArrayList<>();
-        if (userlist != null) {
-            for (User u : userlist
-                    ) {
-                res.add(new UserListViewModel(u));
-            }
-        }
-        view.refreshUserList(res);*/
+        
     }
 
     @Override
@@ -73,10 +95,27 @@ public class UserProfilePresenter implements IAlbumRepository.IAlbumRepositoryLi
 
     }
 
+    @Override
+    public void onError(String message) {
+        view.displayErrorMessage(message);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeParcelable(userViewModel, i);
+        parcel.writeTypedList(posts);
+        parcel.writeTypedList(albums);
+    }
+
     interface View {
         void displayUserProfile(UserViewModel userViewModel);
 
-        void onError(String message);
+        void displayErrorMessage(String message);
 
         void albumListUpdated(List<AlbumListViewModel> albums);
 

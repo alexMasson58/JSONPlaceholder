@@ -15,5 +15,7 @@ public interface IAlbumRepository {
         void albumListUpdated(List<Album> albums);
 
         void albumsForUser(List<Album> albums);
+
+        void onError(String message);
     }
 }

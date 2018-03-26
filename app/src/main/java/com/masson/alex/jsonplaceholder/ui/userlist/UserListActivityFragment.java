@@ -18,6 +18,7 @@ import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
 import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,7 +31,6 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
 
     public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
-    public static final String USERLIST_STATE = "USERLIST_STATE";
     public static final String PRESENTER_STATE = "PRESENTER_STATE";
 
     @BindView(R.id.rec_userlist)
@@ -50,7 +50,6 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        /*outState.putParcelableArrayList(USERLIST_STATE, (ArrayList<? extends Parcelable>) adapter.getUserList());*/
         outState.putParcelable(PRESENTER_STATE, presenter);
     }
 
@@ -75,8 +74,6 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
         //If restoring from state, load the list from the bundle
         if (savedInstanceState != null) {
-           /* ArrayList<UserListViewModel> list = savedInstanceState.getParcelableArrayList(USERLIST_STATE);
-            adapter.setUserList(list);*/
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
             presenter.bind(this);
         }
@@ -105,7 +102,7 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
     @Override
     public void displayUserProfile(UserViewModel u) {
         Intent i = new Intent(this.getContext(), UserProfileActivity.class);
-        i.putExtra(USERPROFILE_EXTRA, u);
+        i.putExtra(USERPROFILE_EXTRA, (Serializable) u);
         getContext().startActivity(i);
     }
 

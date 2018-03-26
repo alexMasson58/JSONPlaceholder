@@ -15,5 +15,7 @@ public interface IPostRepository {
         void postlistUpdated(List<Post> posts);
 
         void postForUsers(List<Post> posts);
+
+        void onError(String message);
     }
 }
