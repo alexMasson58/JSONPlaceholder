@@ -21,27 +21,20 @@ import java.util.List;
  * Created by frup66058 on 26/03/2018.
  */
 
-public class UserProfilePresenter implements Parcelable, IAlbumRepository.IAlbumRepositoryListener, IPostRepository.IPostRepositoryListener {
+public class UserProfilePresenter implements Parcelable {
 
     private final UserViewModel userViewModel;
     View view;
-    IAlbumRepository albumRepository;
-    IPostRepository postRepository;
-    List<Post> posts;
-    List<Album> albums;
+
 
     public UserProfilePresenter(View view, UserViewModel userViewModel) {
         this.view = view;
-        this.postRepository = MyApplication.app().getPostRepository();
-        this.albumRepository = MyApplication.app().getAlbumRepository();
         this.userViewModel = userViewModel;
     }
 
 
     protected UserProfilePresenter(Parcel in) {
         userViewModel = in.readParcelable(UserViewModel.class.getClassLoader());
-        posts = in.createTypedArrayList(Post.CREATOR);
-        albums = in.createTypedArrayList(Album.CREATOR);
     }
 
     public static final Creator<UserProfilePresenter> CREATOR = new Creator<UserProfilePresenter>() {
@@ -58,44 +51,10 @@ public class UserProfilePresenter implements Parcelable, IAlbumRepository.IAlbum
 
     public void bind(View view) {
         this.view = view;
-        if(albums!=null){
-            albumsForUser(this.albums);
-        }
-        if(posts!=null){
-            postForUsers(this.posts);
-        }
+        view.displayUserProfile(userViewModel);
     }
 
-    public void getUserAlbums(int userid) {
-        albumRepository.getAlbumsListForUser(userid);
-    }
 
-    public void getUserPosts(int userid) {
-        postRepository.getPostsListForUser(userid);
-    }
-
-    @Override
-    public void albumListUpdated(List<Album> albums) {
-
-    }
-
-    @Override
-    public void albumsForUser(List<Album> albums) {
-        this.albums = albums;
-        
-    }
-
-    @Override
-    public void postlistUpdated(List<Post> posts) {
-
-    }
-
-    @Override
-    public void postForUsers(List<Post> posts) {
-
-    }
-
-    @Override
     public void onError(String message) {
         view.displayErrorMessage(message);
     }
@@ -108,8 +67,6 @@ public class UserProfilePresenter implements Parcelable, IAlbumRepository.IAlbum
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(userViewModel, i);
-        parcel.writeTypedList(posts);
-        parcel.writeTypedList(albums);
     }
 
     interface View {
@@ -117,8 +74,5 @@ public class UserProfilePresenter implements Parcelable, IAlbumRepository.IAlbum
 
         void displayErrorMessage(String message);
 
-        void albumListUpdated(List<AlbumListViewModel> albums);
-
-        void postListUpdated(List<PostListViewModel> posts);
     }
 }
