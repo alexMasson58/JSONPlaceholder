@@ -66,6 +66,10 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         this.notifyDataSetChanged();
     }
 
+    public List<UserListViewModel> getUserList() {
+        return userList;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private View view;

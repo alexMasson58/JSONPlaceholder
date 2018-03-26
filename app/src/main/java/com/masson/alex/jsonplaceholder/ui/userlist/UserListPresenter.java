@@ -1,6 +1,7 @@
 package com.masson.alex.jsonplaceholder.ui.userlist;
 
-import android.arch.lifecycle.LifecycleOwner;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.User;
@@ -15,20 +16,51 @@ import java.util.List;
  * Created by alex on 25/03/2018.
  */
 
-public class UserListPresenter implements IUserRepository.IUserRepositoryListener {
+public class UserListPresenter implements IUserRepository.IUserRepositoryListener , Parcelable{
 
-    private final IUserRepository userRepository;
+    private  IUserRepository userRepository;
     private View view;
     private List<User> userlist;
 
     public UserListPresenter(View v) {
         this.userRepository = MyApplication.app().getUserRepository();
         this.view = v;
+        userlist = new ArrayList<>();
     }
+
+    protected UserListPresenter(Parcel in) {
+        this.userRepository = MyApplication.app().getUserRepository();
+        userlist = in.readArrayList(User.class.getClassLoader());
+        if(userlist == null){
+            userlist = new ArrayList<>();
+        }
+
+    }
+
+    public void bind(View view) {
+        this.view = view;
+        if(userlist!=null){
+            userListUpdated(this.userlist);
+        }
+    }
+
+    public static final Creator<UserListPresenter> CREATOR = new Creator<UserListPresenter>() {
+        @Override
+        public UserListPresenter createFromParcel(Parcel in) {
+            return new UserListPresenter(in);
+        }
+
+        @Override
+        public UserListPresenter[] newArray(int size) {
+            return new UserListPresenter[size];
+        }
+    };
 
     public void getUserList() {
         userRepository.getUserList(this);
     }
+
+
 
     public void userClicked(int position) {
         userFound(userlist.get(position));
@@ -56,6 +88,16 @@ public class UserListPresenter implements IUserRepository.IUserRepositoryListene
     @Override
     public void onError(String message) {
         view.displayErrorMessage(message);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeList(userlist);
     }
 
     public interface View {

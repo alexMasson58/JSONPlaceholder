@@ -1,12 +1,15 @@
 package com.masson.alex.jsonplaceholder.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by alex on 24/03/2018.
  */
 
-public class Comment implements Serializable{
+public class Comment implements Serializable, Parcelable{
     private int postId;
     private int id;
     private String name;
@@ -23,6 +26,26 @@ public class Comment implements Serializable{
         this.email = email;
         this.body = body;
     }
+
+    protected Comment(Parcel in) {
+        postId = in.readInt();
+        id = in.readInt();
+        name = in.readString();
+        email = in.readString();
+        body = in.readString();
+    }
+
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel in) {
+            return new Comment(in);
+        }
+
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
+        }
+    };
 
     public int getPostId() {
         return postId;
@@ -62,5 +85,19 @@ public class Comment implements Serializable{
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(postId);
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(email);
+        parcel.writeString(body);
     }
 }

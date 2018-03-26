@@ -1,10 +1,10 @@
 package com.masson.alex.jsonplaceholder.ui.userlist;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
-import com.masson.alex.jsonplaceholder.application.MyApplication;
-import com.masson.alex.jsonplaceholder.model.User;
 import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
 import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
@@ -32,6 +30,8 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
 
     public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
+    public static final String USERLIST_STATE = "USERLIST_STATE";
+    public static final String PRESENTER_STATE = "PRESENTER_STATE";
 
     @BindView(R.id.rec_userlist)
     RecyclerView recyclerView;
@@ -45,6 +45,13 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
     public UserListActivityFragment() {
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        /*outState.putParcelableArrayList(USERLIST_STATE, (ArrayList<? extends Parcelable>) adapter.getUserList());*/
+        outState.putParcelable(PRESENTER_STATE, presenter);
     }
 
     @Override
@@ -65,6 +72,17 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
         adapter = new UserRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        //If restoring from state, load the list from the bundle
+        if (savedInstanceState != null) {
+           /* ArrayList<UserListViewModel> list = savedInstanceState.getParcelableArrayList(USERLIST_STATE);
+            adapter.setUserList(list);*/
+            presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
+            presenter.bind(this);
+        }
+        else{
+            onRefresh();
+        }
     }
 
     @Override
@@ -86,8 +104,9 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
     @Override
     public void displayUserProfile(UserViewModel u) {
-        Intent i = new Intent(getActivity(), UserProfileActivity.class);
+        Intent i = new Intent(this.getContext(), UserProfileActivity.class);
         i.putExtra(USERPROFILE_EXTRA, u);
+        getContext().startActivity(i);
     }
 
     @Override

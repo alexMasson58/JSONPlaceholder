@@ -1,12 +1,15 @@
 package com.masson.alex.jsonplaceholder.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by alex on 24/03/2018.
  */
 
-public class User implements Serializable{
+public class User implements Serializable, Parcelable {
     private int id;
     private String name;
     private String username;
@@ -29,6 +32,29 @@ public class User implements Serializable{
         this.website = website;
         this.compagny = compagny;
     }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        username = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        website = in.readString();
+        address = in.readParcelable(Address.class.getClassLoader());
+        compagny = in.readParcelable(Compagny.class.getClassLoader());
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -92,5 +118,22 @@ public class User implements Serializable{
 
     public void setCompagny(Compagny compagny) {
         this.compagny = compagny;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeString(username);
+        parcel.writeString(email);
+        parcel.writeParcelable(address, i);
+        parcel.writeString(phone);
+        parcel.writeString(website);
+        parcel.writeParcelable(compagny, i);
     }
 }
