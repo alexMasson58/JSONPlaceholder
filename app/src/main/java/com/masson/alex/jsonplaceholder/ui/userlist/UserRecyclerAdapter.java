@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.masson.alex.jsonplaceholder.R;
 import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,8 +28,8 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     private final ItemClickListener listener;
     private List<UserListViewModel> userList;
 
-    public UserRecyclerAdapter(ItemClickListener listener, List<UserListViewModel> userList) {
-        this.userList = userList;
+    public UserRecyclerAdapter(ItemClickListener listener) {
+        userList = new ArrayList<>();
         this.listener = listener;
     }
 

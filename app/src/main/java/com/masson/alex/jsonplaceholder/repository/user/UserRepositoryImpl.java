@@ -18,8 +18,6 @@ import retrofit2.Response;
 public class UserRepositoryImpl implements IUserRepository {
 
     private UserService service;
-    private List<User> users;
-    private User theUser;
 
     public UserRepositoryImpl() {
         if (this.service == null) {
@@ -28,7 +26,7 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public List<User> getUserList() {
+    public void getUserList(final IUserRepositoryListener listener) {
         service.getAPI().getUserList().enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -37,24 +35,30 @@ public class UserRepositoryImpl implements IUserRepository {
                     List<User> data = response.body();
 
                     if (data != null) {
-                        users = data;
+                        if(listener!=null){
+                            listener.userListUpdated(data);
+                        }
                     }
-                } else {
-                    users = new ArrayList<>();
+                }
+                else{
+                    if(listener!=null){
+                        listener.onError("Unable to get users list");
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                users = new ArrayList<>();
+                if(listener!=null){
+                    listener.onError("Unable to get users list");
+                }
             }
         });
 
-        return users;
     }
 
     @Override
-    public User getUser(int id) {
+    public void getUser(int id, final IUserRepositoryListener listener) {
 
 
         service.getAPI().getUserList(id).enqueue(new Callback<User>() {
@@ -63,16 +67,19 @@ public class UserRepositoryImpl implements IUserRepository {
                 if (response.isSuccessful()) {
                     User u = response.body();
                     if (u != null) {
-                        theUser = u;
+                        if(listener!=null){
+                            listener.userFound(u);
+                        }
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                theUser = null;
+                if(listener!=null){
+                    listener.onError("User not found");
+                }
             }
         });
-        return theUser;
     }
 }

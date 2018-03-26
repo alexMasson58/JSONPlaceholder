@@ -12,6 +12,12 @@ import javax.security.auth.callback.Callback;
  */
 
 public interface IUserRepository {
-    List<User> getUserList();
-    User getUser(int id);
+    void getUserList(IUserRepositoryListener listener);
+    void getUser(int id, IUserRepositoryListener listener);
+
+     interface IUserRepositoryListener{
+        void userListUpdated(List<User> users);
+        void userFound(User u);
+        void onError(String message);
+    }
 }

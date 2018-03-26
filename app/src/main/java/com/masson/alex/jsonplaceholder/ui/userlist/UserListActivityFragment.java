@@ -11,12 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.User;
 import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
+import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,8 +61,8 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserListPresenter(MyApplication.app().getUserRepository(), this);
-        adapter = new UserRecyclerAdapter(this, presenter.getUserList());
+        presenter = new UserListPresenter(this);
+        adapter = new UserRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
@@ -67,13 +71,17 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
     public void onResume() {
         super.onResume();
         if (adapter != null) {
-            refreshUserList();
+            adapter.notifyDataSetChanged();
         }
     }
 
+
     @Override
-    public void refreshUserList() {
-        adapter.setUserList(presenter.getUserList());
+    public void refreshUserList(List<UserListViewModel> users) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        adapter.setUserList(users);
     }
 
     @Override
@@ -82,10 +90,18 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
         i.putExtra(USERPROFILE_EXTRA, u);
     }
 
+    @Override
+    public void displayErrorMessage(String message) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     public void onRefresh() {
-        refreshUserList();
+        presenter.getUserList();
     }
 
     @Override
