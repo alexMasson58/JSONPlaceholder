@@ -1,4 +1,4 @@
-package com.masson.alex.jsonplaceholder.ui.userprofile;
+package com.masson.alex.jsonplaceholder.ui.userprofile.posts;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.Post;
 import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
-import com.masson.alex.jsonplaceholder.viewmodel.PostListViewModel;
+import com.masson.alex.jsonplaceholder.viewmodel.PostViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,25 +54,25 @@ public class UserProfilePostPresenter implements Parcelable, IPostRepository.IPo
     }
 
     public void getUserPosts(int userid) {
-        postRepository.getPostsListForUser(userid);
+        postRepository.getPostsListForUser(userid, this);
     }
 
-    @Override
+   /* @Override
     public void postlistUpdated(List<Post> posts) {
-        this.posts = posts;
-        ArrayList<PostListViewModel> res = new ArrayList<>();
-        if (posts != null) {
-            for (Post u : posts
-                    ) {
-                res.add(new PostListViewModel(u));
-            }
-        }
-        view.postListUpdated(res);
-    }
+
+    }*/
 
     @Override
     public void postForUsers(List<Post> posts) {
-
+        this.posts = posts;
+        ArrayList<PostViewModel> res = new ArrayList<>();
+        if (posts != null) {
+            for (Post u : posts
+                    ) {
+                res.add(new PostViewModel(u));
+            }
+        }
+        view.postListUpdated(res);
     }
 
     @Override
@@ -90,10 +90,17 @@ public class UserProfilePostPresenter implements Parcelable, IPostRepository.IPo
         dest.writeTypedList(posts);
     }
 
+    public void postClicked(int position) {
+        view.displayPost(new PostViewModel(posts.get(position)));
+    }
+
     interface View {
         void displayErrorMessage(String message);
 
+        void postListUpdated(List<PostViewModel> posts);
 
-        void postListUpdated(List<PostListViewModel> posts);
+        void onRefresh();
+
+        void displayPost(PostViewModel post);
     }
 }

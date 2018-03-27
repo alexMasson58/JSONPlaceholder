@@ -1,4 +1,4 @@
-package com.masson.alex.jsonplaceholder.ui.userprofile;
+package com.masson.alex.jsonplaceholder.ui.userprofile.albums;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.Album;
 import com.masson.alex.jsonplaceholder.repository.album.IAlbumRepository;
-import com.masson.alex.jsonplaceholder.viewmodel.AlbumListViewModel;
+import com.masson.alex.jsonplaceholder.viewmodel.AlbumViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,19 +52,19 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
 
     }
 
-    @Override
+    /*@Override
     public void albumListUpdated(List<Album> albums) {
 
-    }
+    }*/
 
     @Override
     public void albumsForUser(List<Album> albums) {
         this.albums = albums;
-        ArrayList<AlbumListViewModel> res = new ArrayList<>();
+        ArrayList<AlbumViewModel> res = new ArrayList<>();
         if (albums != null) {
             for (Album u : albums
                     ) {
-                res.add(new AlbumListViewModel(u));
+                res.add(new AlbumViewModel(u));
             }
         }
         view.albumListUpdated(res);
@@ -76,7 +76,7 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
     }
 
     public void getUserAlbums(int userid) {
-        albumRepository.getAlbumsListForUser(userid);
+        albumRepository.getAlbumsListForUser(userid, this);
     }
 
     @Override
@@ -89,10 +89,21 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
         dest.writeTypedList(albums);
     }
 
+    public List<Album> getAlbumList() {
+        return albums;
+    }
+
+    public void albumClicked(int position) {
+        view.displayAlbum(new AlbumViewModel(albums.get(position)));
+    }
+
     interface View {
         void displayErrorMessage(String message);
 
-        void albumListUpdated(List<AlbumListViewModel> albums);
+        void albumListUpdated(List<AlbumViewModel> albums);
 
+        void onRefresh();
+
+        void displayAlbum(AlbumViewModel album);
     }
 }

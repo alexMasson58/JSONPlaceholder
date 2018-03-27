@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
@@ -17,7 +18,6 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:padding="@dimen/cell_padding_horizontal">
 
             <LinearLayout
@@ -27,13 +27,13 @@
                 android:layout_margin="@dimen/fab_margin"
                 android:background="@drawable/round_primary_24dp"
                 android:gravity="center"
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    card_view:srcCompat="@drawable/ic_face_white_24px" />
+                    app:srcCompat="@drawable/ic_face_white_24px" />
             </LinearLayout>
 
             <LinearLayout
@@ -41,8 +41,8 @@
                 android:layout_height="@dimen/fab_size"
                 android:background="@drawable/round_accent_16dp"
                 android:gravity="center"
-                card_view:layout_constraintBottom_toBottomOf="@+id/lay_face"
-                card_view:layout_constraintRight_toRightOf="@+id/lay_face">
+                app:layout_constraintBottom_toBottomOf="@+id/lay_face"
+                app:layout_constraintRight_toRightOf="@+id/lay_face">
 
                 <TextView
                     android:id="@+id/id"
@@ -59,9 +59,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:orientation="horizontal"
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@id/lay_face">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lay_face">
 
                 <TextView
                     android:id="@+id/name"
@@ -93,9 +93,9 @@
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/text_secondary"
 
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@id/lay_name" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lay_name" />
 
             <TextView
                 android:id="@+id/website"
@@ -106,9 +106,9 @@
 
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/text_secondary"
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@id/email" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email" />
 
             <View
                 android:id="@+id/divider_phone"
@@ -116,7 +116,7 @@
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:background="@color/accent"
-                card_view:layout_constraintTop_toBottomOf="@id/website" />
+                app:layout_constraintTop_toBottomOf="@id/website" />
 
             <ImageView
                 android:id="@+id/iv_phone"
@@ -124,13 +124,13 @@
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:tint="@color/primary_dark"
-                card_view:layout_constraintLeft_toLeftOf="@id/divider_phone"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_phone"
-                card_view:srcCompat="@drawable/ic_phone_white_24px" />
+                app:layout_constraintLeft_toLeftOf="@id/divider_phone"
+                app:layout_constraintTop_toBottomOf="@id/divider_phone"
+                app:srcCompat="@drawable/ic_phone_white_24px" />
 
             <TextView
                 android:id="@+id/phone"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_Small"
                 android:layout_marginTop="@dimen/margin_Small"
@@ -139,8 +139,9 @@
                 android:textColor="@color/secondary_text"
 
                 android:textSize="@dimen/text_primary"
-                card_view:layout_constraintLeft_toRightOf="@id/iv_phone"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_phone" />
+                app:layout_constraintLeft_toRightOf="@id/iv_phone"
+                app:layout_constraintTop_toBottomOf="@id/divider_phone"
+                app:layout_constraintRight_toRightOf="parent"/>
 
 
             <View
@@ -149,7 +150,7 @@
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:background="@color/accent"
-                card_view:layout_constraintTop_toBottomOf="@id/iv_phone" />
+                app:layout_constraintTop_toBottomOf="@id/iv_phone" />
 
             <ImageView
                 android:id="@+id/iv_place"
@@ -157,21 +158,22 @@
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:tint="@color/primary_dark"
-                card_view:layout_constraintBottom_toTopOf="@+id/divider_compagny"
-                card_view:layout_constraintLeft_toLeftOf="@id/divider_address"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_address"
-                card_view:srcCompat="@drawable/ic_place_white_24px" />
+                app:layout_constraintBottom_toTopOf="@+id/divider_compagny"
+                app:layout_constraintLeft_toLeftOf="@id/divider_address"
+                app:layout_constraintTop_toBottomOf="@id/divider_address"
+                app:srcCompat="@drawable/ic_place_white_24px" />
 
             <LinearLayout
                 android:id="@+id/lay_address"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_Small"
                 android:layout_marginTop="@dimen/margin_Small"
                 android:orientation="vertical"
 
-                card_view:layout_constraintLeft_toRightOf="@id/iv_place"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_address"
+                app:layout_constraintLeft_toRightOf="@id/iv_place"
+                app:layout_constraintTop_toBottomOf="@id/divider_address"
+                app:layout_constraintRight_toRightOf="parent"
 
                 >
 
@@ -207,7 +209,7 @@
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:background="@color/accent"
-                card_view:layout_constraintTop_toBottomOf="@id/lay_address" />
+                app:layout_constraintTop_toBottomOf="@id/lay_address" />
 
             <ImageView
                 android:id="@+id/iv_business"
@@ -215,22 +217,23 @@
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:tint="@color/primary_dark"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintLeft_toLeftOf="@id/divider_compagny"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/divider_compagny"
 
-                card_view:layout_constraintTop_toBottomOf="@id/divider_compagny"
-                card_view:srcCompat="@drawable/ic_business_white_24px" />
+                app:layout_constraintTop_toBottomOf="@id/divider_compagny"
+                app:srcCompat="@drawable/ic_business_white_24px" />
 
             <LinearLayout
                 android:id="@+id/lay_compagny"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_Small"
                 android:layout_marginTop="@dimen/margin_Small"
                 android:orientation="vertical"
 
-                card_view:layout_constraintLeft_toRightOf="@id/iv_business"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_compagny"
+                app:layout_constraintLeft_toRightOf="@id/iv_business"
+                app:layout_constraintTop_toBottomOf="@id/divider_compagny"
+                app:layout_constraintRight_toRightOf="parent"
 
                 >
 

@@ -17,7 +17,7 @@ public interface UserAPI {
     @GET("users")
     Call<List<User>> getUserList();
 
-    @GET("users/{i}")
+    @GET("users/{id}")
     Call<User> getUserList(@Path("id") int userid);
 
 

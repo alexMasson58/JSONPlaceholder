@@ -7,6 +7,7 @@ import com.masson.alex.jsonplaceholder.repository.album.IAlbumRepository;
 import com.masson.alex.jsonplaceholder.repository.comment.ICommentRepository;
 import com.masson.alex.jsonplaceholder.repository.photo.IPhotoRepository;
 import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
+import com.masson.alex.jsonplaceholder.repository.post.PostRepositoryImpl;
 import com.masson.alex.jsonplaceholder.repository.user.IUserRepository;
 import com.masson.alex.jsonplaceholder.repository.user.UserRepositoryImpl;
 
@@ -29,6 +30,7 @@ public class MyApplication extends Application {
         //TODO : init repositories
         userRepository = new UserRepositoryImpl();
         albumRepository = new AlbumRepositoryImpl();
+        postRepository =  new PostRepositoryImpl();
     }
 
     public static MyApplication app(){

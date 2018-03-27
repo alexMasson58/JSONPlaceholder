@@ -13,6 +13,6 @@ import retrofit2.http.Path;
  */
 
 public interface AlbumAPI {
-    @GET("users/{i}/albums")
+    @GET("users/{id}/albums")
     Call<List<Album>> getAlbumsForUser(@Path("id") int userid);
 }

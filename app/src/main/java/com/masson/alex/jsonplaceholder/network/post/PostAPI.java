@@ -13,6 +13,6 @@ import retrofit2.http.Path;
  */
 
 public interface PostAPI {
-    @GET("users/{i}/posts")
+    @GET("users/{id}/posts")
     Call<List<Post>> getPostsForUser(@Path("id") int userid);
 }

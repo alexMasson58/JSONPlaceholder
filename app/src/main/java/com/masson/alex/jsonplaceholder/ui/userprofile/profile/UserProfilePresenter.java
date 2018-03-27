@@ -1,4 +1,4 @@
-package com.masson.alex.jsonplaceholder.ui.userprofile;
+package com.masson.alex.jsonplaceholder.ui.userprofile.profile;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -58,7 +58,7 @@ public class UserProfilePresenter implements Parcelable {
         parcel.writeParcelable(userViewModel, i);
     }
 
-    interface View {
+    public interface View {
         void displayUserProfile(UserViewModel userViewModel);
 
         void displayErrorMessage(String message);

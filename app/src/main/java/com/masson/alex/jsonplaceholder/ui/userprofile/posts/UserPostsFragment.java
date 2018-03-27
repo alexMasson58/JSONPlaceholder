@@ -1,6 +1,6 @@
-package com.masson.alex.jsonplaceholder.ui.userlist;
+package com.masson.alex.jsonplaceholder.ui.userprofile.posts;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,50 +14,48 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
-import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
-import com.masson.alex.jsonplaceholder.viewmodel.UserLightViewModel;
+import com.masson.alex.jsonplaceholder.ui.userlist.UserRecyclerAdapter;
+import com.masson.alex.jsonplaceholder.ui.userprofile.albums.UserProfileAlbumPresenter;
+import com.masson.alex.jsonplaceholder.ui.userprofile.albums.UserProfileAlbumRecyclerAdapter;
+import com.masson.alex.jsonplaceholder.viewmodel.PostViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A simple {@link Fragment} subclass.
  */
-public class UserListActivityFragment extends Fragment implements UserListPresenter.View, SwipeRefreshLayout.OnRefreshListener, UserRecyclerAdapter.ItemClickListener {
+public class UserPostsFragment extends Fragment implements UserProfilePostPresenter.View, UserProfilePostRecyclerAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
-    public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
     public static final String PRESENTER_STATE = "PRESENTER_STATE";
-
-    @BindView(R.id.rec_userlist)
+    public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
+    @BindView(R.id.rec_postlist)
     RecyclerView recyclerView;
 
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager viewManager;
-    private UserListPresenter presenter;
-    private UserRecyclerAdapter adapter;
 
+    UserProfilePostPresenter presenter;
+    UserProfilePostRecyclerAdapter adapter;
+    private UserViewModel uvm;
 
-    public UserListActivityFragment() {
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(PRESENTER_STATE, presenter);
+    public static UserPostsFragment newInstance() {
+        UserPostsFragment fragment = new UserPostsFragment();
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_user_list, container, false);
+        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
+        return inflater.inflate(R.layout.fragment_user_posts, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -67,8 +65,8 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserListPresenter(this);
-        adapter = new UserRecyclerAdapter(this);
+        presenter = new UserProfilePostPresenter(this);
+        adapter = new UserProfilePostRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -76,8 +74,7 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
             presenter.bind(this);
-        }
-        else{
+        } else {
             onRefresh();
         }
     }
@@ -90,22 +87,6 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
         }
     }
 
-
-    @Override
-    public void userListUpdated(List<UserViewModel> users) {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        adapter.setUserList(users);
-    }
-
-    @Override
-    public void displayUserProfile(UserViewModel u) {
-        Intent i = new Intent(this.getContext(), UserProfileActivity.class);
-        i.putExtra(USERPROFILE_EXTRA, (Serializable) u);
-        getContext().startActivity(i);
-    }
-
     @Override
     public void displayErrorMessage(String message) {
         if (swipeRefreshLayout.isRefreshing()) {
@@ -114,18 +95,31 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void postListUpdated(List<PostViewModel> posts) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        adapter.setPostList(posts);
+    }
 
     @Override
     public void onRefresh() {
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(true);
         }
+        presenter.getUserPosts(uvm.getId());
+    }
 
-        presenter.getUserList();
+    @Override
+    public void displayPost(PostViewModel post) {
+
+        Toast.makeText(getContext(), "album : " + post.getTitle(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onItemClicked(int position) {
-        presenter.userClicked(position);
+        presenter.postClicked(position);
     }
+
 }
