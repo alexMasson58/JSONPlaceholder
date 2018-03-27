@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/usercard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_XSmall"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:padding="@dimen/cell_padding_horizontal">
+
+        <LinearLayout
+            android:id="@+id/lay_icon"
+            android:layout_width="@dimen/circle_image"
+            android:layout_height="@dimen/circle_image"
+            android:layout_margin="@dimen/fab_margin"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/lay_face">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_comment_white_24px"
+                android:tint="@color/primary_dark"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:background="@drawable/round_accent_16dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/lay_icon"
+            app:layout_constraintRight_toRightOf="@+id/lay_icon">
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_secondary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_face"
+            android:layout_width="@dimen/circle_image"
+            android:layout_height="@dimen/circle_image"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@drawable/round_primary_24dp"
+            android:gravity="center"
+            app:layout_constraintLeft_toRightOf="@+id/lay_icon"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/ic_face_white_24px" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="email@email.com"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/text_secondary"
+
+
+            android:layout_marginTop="@dimen/margin_Small"
+            app:layout_constraintLeft_toLeftOf="@+id/lay_face"
+            app:layout_constraintRight_toRightOf="@+id/lay_face"
+            app:layout_constraintTop_toBottomOf="@+id/lay_icon"
+            />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_primary"
+
+            android:layout_marginTop="@dimen/margin_Small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email"
+            />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/primary_dark"
+
+            android:layout_margin="@dimen/margin_Small"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            />
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/text_secondary"
+            android:layout_margin="@dimen/margin_Small"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

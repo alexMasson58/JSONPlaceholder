@@ -9,5 +9,12 @@ import java.util.List;
  */
 
 public interface ICommentRepository {
-    List<Comment> getCommentListForPost(int postid);
+
+    interface ICommentRepositoryListener {
+        void commentsForPost(List<Comment> comments);
+
+        void onError(String message);
+    }
+
+    void getCommentListForPost(int postid, ICommentRepositoryListener listener);
 }

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.masson.alex.jsonplaceholder.repository.album.AlbumRepositoryImpl;
 import com.masson.alex.jsonplaceholder.repository.album.IAlbumRepository;
+import com.masson.alex.jsonplaceholder.repository.comment.CommentRepositoryImpl;
 import com.masson.alex.jsonplaceholder.repository.comment.ICommentRepository;
 import com.masson.alex.jsonplaceholder.repository.photo.IPhotoRepository;
 import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
@@ -31,6 +32,7 @@ public class MyApplication extends Application {
         userRepository = new UserRepositoryImpl();
         albumRepository = new AlbumRepositoryImpl();
         postRepository =  new PostRepositoryImpl();
+        commentRepository = new CommentRepositoryImpl();
     }
 
     public static MyApplication app(){

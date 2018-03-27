@@ -1,11 +1,9 @@
-package com.masson.alex.jsonplaceholder.ui.userprofile.posts;
+package com.masson.alex.jsonplaceholder.ui.commentlist;
 
-
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,53 +13,50 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
-import com.masson.alex.jsonplaceholder.ui.commentlist.CommentListActivity;
+import com.masson.alex.jsonplaceholder.ui.userlist.UserListPresenter;
 import com.masson.alex.jsonplaceholder.ui.userlist.UserRecyclerAdapter;
-import com.masson.alex.jsonplaceholder.ui.userprofile.albums.UserProfileAlbumPresenter;
-import com.masson.alex.jsonplaceholder.ui.userprofile.albums.UserProfileAlbumRecyclerAdapter;
+import com.masson.alex.jsonplaceholder.viewmodel.CommentViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.PostViewModel;
-import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
-import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.POST;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A placeholder fragment containing a simple view.
  */
-public class UserPostsFragment extends Fragment implements UserProfilePostPresenter.View, UserProfilePostRecyclerAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
-
+public class CommentListActivityFragment extends Fragment implements CommentListPresenter.View, UserRecyclerAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String PRESENTER_STATE = "PRESENTER_STATE";
-    public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
-
     private static final String POST_EXTRA = "POST_EXTRA";
-    @BindView(R.id.rec_postlist)
+
+    @BindView(R.id.rec_commentlist)
     RecyclerView recyclerView;
 
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager viewManager;
 
-    UserProfilePostPresenter presenter;
-    UserProfilePostRecyclerAdapter adapter;
-    private UserViewModel uvm;
+    private CommentListPresenter presenter;
+    private CommentRecyclerAdapter adapter;
 
-    public static UserPostsFragment newInstance() {
-        UserPostsFragment fragment = new UserPostsFragment();
-        return fragment;
+    private PostViewModel pvm;
+    public CommentListActivityFragment() {
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(PRESENTER_STATE, presenter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
-        return inflater.inflate(R.layout.fragment_user_posts, container, false);
-    }
+        pvm = (PostViewModel) getArguments().getSerializable(POST_EXTRA);
+        return inflater.inflate(R.layout.fragment_comment_list, container, false);
 
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -71,8 +66,8 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
 
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserProfilePostPresenter(this);
-        adapter = new UserProfilePostRecyclerAdapter(this);
+        presenter = new CommentListPresenter(this);
+        adapter = new CommentRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -80,10 +75,39 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
             presenter.bind(this);
-        } else {
+        }
+        else{
             onRefresh();
         }
     }
+
+
+    @Override
+    public void displayErrorMessage(String message) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void commentListUpdated(List<CommentViewModel> comments) {
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        adapter.setCommentList(comments);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+
+        presenter.getPostComment(pvm.getId());
+    }
+
 
     @Override
     public void onResume() {
@@ -94,40 +118,12 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
     }
 
     @Override
-    public void displayErrorMessage(String message) {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void postListUpdated(List<PostViewModel> posts) {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        adapter.setPostList(posts);
-    }
-
-    @Override
-    public void onRefresh() {
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(true);
-        }
-        presenter.getUserPosts(uvm.getId());
-    }
-
-    @Override
-    public void displayPost(PostViewModel post) {
-        Intent i = new Intent(this.getContext(), CommentListActivity.class);
-        i.putExtra(POST_EXTRA, (Serializable) post);
-        getContext().startActivity(i);
-
-    }
-
-    @Override
     public void onItemClicked(int position) {
-        presenter.postClicked(position);
+
     }
 
+    public static Fragment newInstance() {
+        Fragment frag = new CommentListActivityFragment();
+        return frag;
+    }
 }
