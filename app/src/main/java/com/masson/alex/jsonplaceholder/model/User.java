@@ -17,12 +17,12 @@ public class User implements Serializable, Parcelable {
     private Address address;
     private String phone;
     private String website;
-    private Compagny compagny;
+    private Company company;
 
     public User() {
     }
 
-    public User(int id, String name, String username, String email, Address address, String phone, String website, Compagny compagny) {
+    public User(int id, String name, String username, String email, Address address, String phone, String website, Company company) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -30,7 +30,7 @@ public class User implements Serializable, Parcelable {
         this.address = address;
         this.phone = phone;
         this.website = website;
-        this.compagny = compagny;
+        this.company = company;
     }
 
     protected User(Parcel in) {
@@ -41,7 +41,7 @@ public class User implements Serializable, Parcelable {
         phone = in.readString();
         website = in.readString();
         address = in.readParcelable(Address.class.getClassLoader());
-        compagny = in.readParcelable(Compagny.class.getClassLoader());
+        company = in.readParcelable(Company.class.getClassLoader());
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -112,12 +112,12 @@ public class User implements Serializable, Parcelable {
         this.website = website;
     }
 
-    public Compagny getCompagny() {
-        return compagny;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompagny(Compagny compagny) {
-        this.compagny = compagny;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
@@ -134,6 +134,6 @@ public class User implements Serializable, Parcelable {
         parcel.writeParcelable(address, i);
         parcel.writeString(phone);
         parcel.writeString(website);
-        parcel.writeParcelable(compagny, i);
+        parcel.writeParcelable(company, i);
     }
 }

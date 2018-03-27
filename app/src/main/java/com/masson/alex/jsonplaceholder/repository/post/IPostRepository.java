@@ -9,11 +9,10 @@ import java.util.List;
  */
 
 public interface IPostRepository {
-    void getPostsListForUser(int userid);
+    void getPostsListForUser(int userid, IPostRepositoryListener listener);
 
     interface IPostRepositoryListener {
-        void postlistUpdated(List<Post> posts);
-
+       /* void postlistUpdated(List<Post> posts);*/
         void postForUsers(List<Post> posts);
 
         void onError(String message);

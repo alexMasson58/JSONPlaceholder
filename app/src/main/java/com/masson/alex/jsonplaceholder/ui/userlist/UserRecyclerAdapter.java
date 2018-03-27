@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.masson.alex.jsonplaceholder.R;
-import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
+import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     }
 
     private final ItemClickListener listener;
-    private List<UserListViewModel> userList;
+    private List<UserViewModel> userList;
 
     public UserRecyclerAdapter(ItemClickListener listener) {
         userList = new ArrayList<>();
@@ -42,10 +42,19 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        UserListViewModel uvm = userList.get(position);
+        UserViewModel uvm = userList.get(position);
+        holder.setId(uvm.getId()+"");
         holder.setName(uvm.getName());
         holder.setUsername(uvm.getUsername());
         holder.setEmail(uvm.getEmail());
+        holder.setWebsite(uvm.getWebsite());
+        holder.setPhone(uvm.getPhone());
+        holder.setStreet(uvm.getAddress().getStreet());
+        holder.setSuite(uvm.getAddress().getSuite());
+        holder.setCityZip(uvm.getAddress().getCity(),uvm.getAddress().getZipcode());
+        holder.setCompagny(uvm.getCompany().getName());
+        holder.setCatchPhrase(uvm.getCompany().getCatchPhrase());
+        holder.setBs(uvm.getCompany().getBs());
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,18 +70,21 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         return userList != null ? userList.size() : 0;
     }
 
-    public void setUserList(List<UserListViewModel> userList) {
+    public void setUserList(List<UserViewModel> userList) {
         this.userList = userList;
         this.notifyDataSetChanged();
     }
 
-    public List<UserListViewModel> getUserList() {
+    public List<UserViewModel> getUserList() {
         return userList;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private View view;
+
+        @BindView(R.id.id)
+        protected TextView id;
 
         @BindView(R.id.name)
         protected TextView name;
@@ -83,10 +95,39 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         @BindView(R.id.email)
         protected TextView email;
 
+        @BindView(R.id.website)
+        protected TextView website;
+
+
+        @BindView(R.id.phone)
+        protected TextView phone;
+
+        @BindView(R.id.street)
+        protected TextView street;
+
+        @BindView(R.id.suite)
+        protected TextView suite;
+
+        @BindView(R.id.cityZip)
+        protected TextView cityZip;
+
+        @BindView(R.id.compagny_name)
+        protected TextView compagny;
+
+        @BindView(R.id.catchphrase)
+        protected TextView catchPhrase;
+
+        @BindView(R.id.bs)
+        protected TextView bs;
+
         protected ViewHolder(View itemView) {
             super(itemView);
             this.view = itemView;
             ButterKnife.bind(this, itemView);
+        }
+
+        void setId(String id){
+            this.id.setText(id);
         }
 
         void setName(String name) {
@@ -98,8 +139,41 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         }
 
         void setEmail(String email) {
-            this.email.setText(email);
+            this.email.setText("(" + email + ")");
         }
+
+        void setWebsite(String website) {
+            this.website.setText(website);
+        }
+
+        void setPhone(String phone) {
+            this.phone.setText(phone);
+        }
+
+        void setStreet(String street) {
+            this.street.setText(street);
+        }
+
+        void setSuite(String suite) {
+            this.suite.setText(suite);
+        }
+
+        void setCityZip(String city, String zip) {
+            this.cityZip.setText(city + " (" + zip + ")");
+        }
+
+        void setCompagny(String compagny) {
+            this.compagny.setText(compagny);
+        }
+
+        void setCatchPhrase(String catchPhrase) {
+            this.catchPhrase.setText(catchPhrase);
+        }
+
+        void setBs(String bs) {
+            this.bs.setText(bs);
+        }
+
 
     }
 }

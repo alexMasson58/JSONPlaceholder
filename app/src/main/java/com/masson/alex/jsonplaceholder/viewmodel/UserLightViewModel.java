@@ -5,38 +5,40 @@ import android.os.Parcelable;
 
 import com.masson.alex.jsonplaceholder.model.User;
 
+import java.io.Serializable;
+
 /**
  * Created by alex on 25/03/2018.
  */
 
-public class UserListViewModel implements Parcelable{
+public class UserLightViewModel implements Serializable, Parcelable{
 
 
     private String name;
     private String username;
     private String email;
 
-    public UserListViewModel(User u) {
+    public UserLightViewModel(User u) {
         this.name = u.getName();
         this.username = u.getUsername();
         this.email = u.getEmail();
     }
 
-    protected UserListViewModel(Parcel in) {
+    protected UserLightViewModel(Parcel in) {
         name = in.readString();
         username = in.readString();
         email = in.readString();
     }
 
-    public static final Creator<UserListViewModel> CREATOR = new Creator<UserListViewModel>() {
+    public static final Creator<UserLightViewModel> CREATOR = new Creator<UserLightViewModel>() {
         @Override
-        public UserListViewModel createFromParcel(Parcel in) {
-            return new UserListViewModel(in);
+        public UserLightViewModel createFromParcel(Parcel in) {
+            return new UserLightViewModel(in);
         }
 
         @Override
-        public UserListViewModel[] newArray(int size) {
-            return new UserListViewModel[size];
+        public UserLightViewModel[] newArray(int size) {
+            return new UserLightViewModel[size];
         }
     };
 

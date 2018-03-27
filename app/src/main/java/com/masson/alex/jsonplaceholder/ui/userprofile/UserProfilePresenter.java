@@ -3,19 +3,7 @@ package com.masson.alex.jsonplaceholder.ui.userprofile;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.masson.alex.jsonplaceholder.application.MyApplication;
-import com.masson.alex.jsonplaceholder.model.Album;
-import com.masson.alex.jsonplaceholder.model.Post;
-import com.masson.alex.jsonplaceholder.model.User;
-import com.masson.alex.jsonplaceholder.repository.album.IAlbumRepository;
-import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
-import com.masson.alex.jsonplaceholder.viewmodel.AlbumListViewModel;
-import com.masson.alex.jsonplaceholder.viewmodel.PostListViewModel;
-import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by frup66058 on 26/03/2018.
@@ -30,6 +18,7 @@ public class UserProfilePresenter implements Parcelable {
     public UserProfilePresenter(View view, UserViewModel userViewModel) {
         this.view = view;
         this.userViewModel = userViewModel;
+        view.displayUserProfile(userViewModel);
     }
 
 

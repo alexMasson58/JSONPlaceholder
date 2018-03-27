@@ -42,7 +42,7 @@ public class UserRepositoryImpl implements IUserRepository {
                 }
                 else{
                     if(listener!=null){
-                        listener.onError("Unable to get users list");
+                        listener.onError("Erreur durant la récupération des utilisateurs");
                     }
                 }
             }
@@ -50,7 +50,7 @@ public class UserRepositoryImpl implements IUserRepository {
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
                 if(listener!=null){
-                    listener.onError("Unable to get users list");
+                    listener.onError("Erreur durant la récupération des utilisateurs");
                 }
             }
         });
@@ -77,7 +77,7 @@ public class UserRepositoryImpl implements IUserRepository {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 if(listener!=null){
-                    listener.onError("User not found");
+                    listener.onError("Utilisateur non trouvé");
                 }
             }
         });

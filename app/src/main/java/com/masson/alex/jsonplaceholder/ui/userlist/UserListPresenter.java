@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.User;
 import com.masson.alex.jsonplaceholder.repository.user.IUserRepository;
-import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
+import com.masson.alex.jsonplaceholder.viewmodel.UserLightViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -69,14 +69,14 @@ public class UserListPresenter implements IUserRepository.IUserRepositoryListene
     @Override
     public void userListUpdated(List<User> users) {
         userlist = users;
-        ArrayList<UserListViewModel> res = new ArrayList<>();
+        ArrayList<UserViewModel> res = new ArrayList<>();
         if (userlist != null) {
             for (User u : userlist
                     ) {
-                res.add(new UserListViewModel(u));
+                res.add(new UserViewModel(u));
             }
         }
-        view.refreshUserList(res);
+        view.userListUpdated(res);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class UserListPresenter implements IUserRepository.IUserRepositoryListene
 
     public interface View {
 
-        void refreshUserList(List<UserListViewModel> users);
+        void userListUpdated(List<UserViewModel> users);
 
         void displayUserProfile(UserViewModel u);
 

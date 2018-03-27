@@ -17,7 +17,7 @@ import java.util.List;
 
 public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.IAlbumRepositoryListener {
 
-  IAlbumRepository albumRepository;
+    IAlbumRepository albumRepository;
     List<Album> albums;
     private View view;
 
@@ -46,7 +46,7 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
 
     public void bind(View view) {
         this.view = view;
-        if(albums!=null){
+        if (albums != null) {
             albumsForUser(this.albums);
         }
 
@@ -89,7 +89,7 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
         dest.writeTypedList(albums);
     }
 
-    interface View{
+    interface View {
         void displayErrorMessage(String message);
 
         void albumListUpdated(List<AlbumListViewModel> albums);

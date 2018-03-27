@@ -9,37 +9,37 @@ import java.io.Serializable;
  * Created by alex on 24/03/2018.
  */
 
-public class Compagny implements Serializable, Parcelable{
+public class Company implements Serializable, Parcelable{
     private String name;
     private String catchPhrase;
     private String bs;
 
 
-    public Compagny() {
+    public Company() {
 
     }
 
-    public Compagny(String name, String catchPhrase, String bs) {
+    public Company(String name, String catchPhrase, String bs) {
         this.name = name;
         this.catchPhrase = catchPhrase;
         this.bs = bs;
     }
 
-    protected Compagny(Parcel in) {
+    protected Company(Parcel in) {
         name = in.readString();
         catchPhrase = in.readString();
         bs = in.readString();
     }
 
-    public static final Creator<Compagny> CREATOR = new Creator<Compagny>() {
+    public static final Creator<Company> CREATOR = new Creator<Company>() {
         @Override
-        public Compagny createFromParcel(Parcel in) {
-            return new Compagny(in);
+        public Company createFromParcel(Parcel in) {
+            return new Company(in);
         }
 
         @Override
-        public Compagny[] newArray(int size) {
-            return new Compagny[size];
+        public Company[] newArray(int size) {
+            return new Company[size];
         }
     };
 

@@ -9,10 +9,10 @@ import java.util.List;
  */
 
 public interface IAlbumRepository {
-    void getAlbumsListForUser(int userid);
+    void getAlbumsListForUser(int userid, IAlbumRepositoryListener listener);
 
     interface IAlbumRepositoryListener {
-        void albumListUpdated(List<Album> albums);
+        /*void albumListUpdated(List<Album> albums);*/
 
         void albumsForUser(List<Album> albums);
 

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
 import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
-import com.masson.alex.jsonplaceholder.viewmodel.UserListViewModel;
+import com.masson.alex.jsonplaceholder.viewmodel.UserLightViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
 import java.io.Serializable;
@@ -92,7 +92,7 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
 
     @Override
-    public void refreshUserList(List<UserListViewModel> users) {
+    public void userListUpdated(List<UserViewModel> users) {
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

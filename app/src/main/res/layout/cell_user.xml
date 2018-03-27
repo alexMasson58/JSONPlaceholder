@@ -114,68 +114,67 @@
                 android:id="@+id/divider_phone"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/accent"
                 android:layout_margin="@dimen/margin_Small"
-                card_view:layout_constraintTop_toBottomOf="@id/website"
-                />
+                android:background="@color/accent"
+                card_view:layout_constraintTop_toBottomOf="@id/website" />
 
             <ImageView
                 android:id="@+id/iv_phone"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/margin_Small"
-                card_view:srcCompat="@drawable/ic_phone_white_24px"
+                android:tint="@color/primary_dark"
                 card_view:layout_constraintLeft_toLeftOf="@id/divider_phone"
                 card_view:layout_constraintTop_toBottomOf="@id/divider_phone"
-                android:tint="@color/primary_dark"/>
+                card_view:srcCompat="@drawable/ic_phone_white_24px" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_XSmall"
+                android:layout_marginStart="@dimen/margin_Small"
                 android:layout_marginTop="@dimen/margin_Small"
-
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_phone"
 
                 android:text="phone"
                 android:textColor="@color/secondary_text"
-                android:textSize="@dimen/text_primary" />
+
+                android:textSize="@dimen/text_primary"
+                card_view:layout_constraintLeft_toRightOf="@id/iv_phone"
+                card_view:layout_constraintTop_toBottomOf="@id/divider_phone" />
 
 
             <View
                 android:id="@+id/divider_address"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/accent"
                 android:layout_margin="@dimen/margin_Small"
-                card_view:layout_constraintTop_toBottomOf="@id/iv_phone"
-                />
+                android:background="@color/accent"
+                card_view:layout_constraintTop_toBottomOf="@id/iv_phone" />
+
             <ImageView
                 android:id="@+id/iv_place"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/margin_Small"
-                card_view:srcCompat="@drawable/ic_place_white_24px"
+                android:tint="@color/primary_dark"
+                card_view:layout_constraintBottom_toTopOf="@+id/divider_compagny"
                 card_view:layout_constraintLeft_toLeftOf="@id/divider_address"
                 card_view:layout_constraintTop_toBottomOf="@id/divider_address"
-                card_view:layout_constraintBottom_toTopOf="@+id/divider_compagny"
-                android:tint="@color/primary_dark"/>
+                card_view:srcCompat="@drawable/ic_place_white_24px" />
 
             <LinearLayout
                 android:id="@+id/lay_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_Small"
                 android:layout_marginTop="@dimen/margin_Small"
                 android:orientation="vertical"
 
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintLeft_toRightOf="@id/iv_place"
                 card_view:layout_constraintTop_toBottomOf="@id/divider_address"
 
                 >
+
                 <TextView
                     android:id="@+id/street"
                     android:layout_width="wrap_content"
@@ -184,13 +183,15 @@
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_primary"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/suite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="suite"
                     android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/text_secondary"/>
+                    android:textSize="@dimen/text_secondary" />
+
                 <TextView
                     android:id="@+id/cityZip"
                     android:layout_width="wrap_content"
@@ -199,39 +200,40 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/text_secondary" />
             </LinearLayout>
+
             <View
                 android:id="@+id/divider_compagny"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/margin_Small"
                 android:background="@color/accent"
-                card_view:layout_constraintTop_toBottomOf="@id/lay_address"
-                />
+                card_view:layout_constraintTop_toBottomOf="@id/lay_address" />
 
             <ImageView
                 android:id="@+id/iv_business"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_margin="@dimen/margin_Small"
-                card_view:srcCompat="@drawable/ic_business_white_24px"
-                card_view:layout_constraintLeft_toLeftOf="@id/divider_compagny"
-                card_view:layout_constraintTop_toBottomOf="@id/divider_compagny"
-
+                android:tint="@color/primary_dark"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                android:tint="@color/primary_dark"/>
+                card_view:layout_constraintLeft_toLeftOf="@id/divider_compagny"
+
+                card_view:layout_constraintTop_toBottomOf="@id/divider_compagny"
+                card_view:srcCompat="@drawable/ic_business_white_24px" />
 
             <LinearLayout
                 android:id="@+id/lay_compagny"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_Small"
                 android:layout_marginTop="@dimen/margin_Small"
                 android:orientation="vertical"
 
-                card_view:layout_constraintLeft_toLeftOf="parent"
-                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintLeft_toRightOf="@id/iv_business"
                 card_view:layout_constraintTop_toBottomOf="@id/divider_compagny"
 
                 >
+
                 <TextView
                     android:id="@+id/compagny_name"
                     android:layout_width="wrap_content"
@@ -240,13 +242,15 @@
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_primary"
                     android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/catchphrase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gotta Catch them all"
                     android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/text_secondary"/>
+                    android:textSize="@dimen/text_secondary" />
+
                 <TextView
                     android:id="@+id/bs"
                     android:layout_width="wrap_content"

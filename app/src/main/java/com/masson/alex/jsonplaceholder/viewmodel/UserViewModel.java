@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.masson.alex.jsonplaceholder.model.Address;
-import com.masson.alex.jsonplaceholder.model.Compagny;
+import com.masson.alex.jsonplaceholder.model.Company;
 import com.masson.alex.jsonplaceholder.model.User;
 
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class UserViewModel implements Serializable, Parcelable {
     private Address address;
     private String phone;
     private String website;
-    private Compagny compagny;
+    private Company company;
 
     public UserViewModel(User u) {
         this.id = u.getId();
@@ -31,7 +31,7 @@ public class UserViewModel implements Serializable, Parcelable {
         this.address = u.getAddress();
         this.phone = u.getPhone();
         this.website = u.getWebsite();
-        this.compagny = u.getCompagny();
+        this.company = u.getCompany();
     }
 
     protected UserViewModel(Parcel in) {
@@ -42,7 +42,7 @@ public class UserViewModel implements Serializable, Parcelable {
         address = in.readParcelable(Address.class.getClassLoader());
         phone = in.readString();
         website = in.readString();
-        compagny = in.readParcelable(Compagny.class.getClassLoader());
+        company = in.readParcelable(Company.class.getClassLoader());
     }
 
     public static final Creator<UserViewModel> CREATOR = new Creator<UserViewModel>() {
@@ -113,12 +113,12 @@ public class UserViewModel implements Serializable, Parcelable {
         this.website = website;
     }
 
-    public Compagny getCompagny() {
-        return compagny;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompagny(Compagny compagny) {
-        this.compagny = compagny;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
@@ -135,6 +135,6 @@ public class UserViewModel implements Serializable, Parcelable {
         parcel.writeParcelable(address, i);
         parcel.writeString(phone);
         parcel.writeString(website);
-        parcel.writeParcelable(compagny, i);
+        parcel.writeParcelable(company, i);
     }
 }
