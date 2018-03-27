@@ -1,16 +1,15 @@
 package com.masson.alex.jsonplaceholder.ui.commentlist;
 
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.masson.alex.jsonplaceholder.R;
-import com.masson.alex.jsonplaceholder.ui.userprofile.posts.UserPostsFragment;
+
+import butterknife.OnClick;
 
 public class CommentListActivity extends AppCompatActivity {
 
@@ -27,6 +26,13 @@ public class CommentListActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, frag);
         transaction.commit();
 
+    }
+
+    @OnClick(R.id.fab)
+    public void comment(){
+        FragmentManager fm = getSupportFragmentManager();
+        CommentDialog alertDialog = CommentDialog.newInstance();
+        alertDialog.show(fm, "dialog");
     }
 
 }

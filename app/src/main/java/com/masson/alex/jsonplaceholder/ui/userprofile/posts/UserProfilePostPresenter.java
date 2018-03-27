@@ -17,20 +17,19 @@ import java.util.List;
 
 public class UserProfilePostPresenter implements Parcelable, IPostRepository.IPostRepositoryListener {
 
-    IPostRepository postRepository;
+    IPostRepository repository;
     List<Post> posts;
     private View view;
 
 
-    public UserProfilePostPresenter(View view) {
+    public UserProfilePostPresenter(View view, IPostRepository repository) {
         this.view = view;
         posts = new ArrayList<>();
-        postRepository = MyApplication.app().getPostRepository();
+        this.repository = repository;
     }
 
     protected UserProfilePostPresenter(Parcel in) {
         posts = in.createTypedArrayList(Post.CREATOR);
-        postRepository = MyApplication.app().getPostRepository();
     }
 
     public static final Creator<UserProfilePostPresenter> CREATOR = new Creator<UserProfilePostPresenter>() {
@@ -45,16 +44,16 @@ public class UserProfilePostPresenter implements Parcelable, IPostRepository.IPo
         }
     };
 
-    public void bind(View view) {
+    public void bind(View view, IPostRepository repository) {
         this.view = view;
-
+        this.repository = repository;
         if (posts != null) {
             postForUsers(this.posts);
         }
     }
 
     public void getUserPosts(int userid) {
-        postRepository.getPostsListForUser(userid, this);
+        repository.getPostsListForUser(userid, this);
     }
 
    /* @Override

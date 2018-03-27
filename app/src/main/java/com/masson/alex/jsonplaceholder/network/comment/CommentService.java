@@ -9,18 +9,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CommentService {
     private Retrofit retrofit = null;
+    private CommentAPI api;
 
     public CommentAPI getAPI() {
-        String BASE_URL = "https://jsonplaceholder.typicode.com/";
+        if(api == null) {
+            String BASE_URL = "https://jsonplaceholder.typicode.com/";
 
-        if (retrofit == null) {
-            retrofit = new Retrofit
-                    .Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+
+            if (retrofit == null) {
+                retrofit = new Retrofit
+                        .Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+            }
+
+            api = retrofit.create(CommentAPI.class);
         }
-
-        return retrofit.create(CommentAPI.class);
+        return api;
     }
 }

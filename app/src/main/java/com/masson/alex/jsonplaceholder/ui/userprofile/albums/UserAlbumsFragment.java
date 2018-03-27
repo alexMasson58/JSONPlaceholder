@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
+import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.viewmodel.AlbumViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
@@ -49,7 +50,7 @@ public class UserAlbumsFragment extends Fragment implements UserProfileAlbumPres
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
+
         return inflater.inflate(R.layout.fragment_user_albums, container, false);
     }
 
@@ -65,10 +66,10 @@ public class UserAlbumsFragment extends Fragment implements UserProfileAlbumPres
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         recyclerView.setHasFixedSize(true);
-
+        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserProfileAlbumPresenter(this);
+        presenter = new UserProfileAlbumPresenter(this, MyApplication.app().getAlbumRepository());
         adapter = new UserProfileAlbumRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -76,7 +77,7 @@ public class UserAlbumsFragment extends Fragment implements UserProfileAlbumPres
         //If restoring from state, load the list from the bundle
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
-            presenter.bind(this);
+            presenter.bind(this, MyApplication.app().getAlbumRepository());
         } else {
             onRefresh();
         }

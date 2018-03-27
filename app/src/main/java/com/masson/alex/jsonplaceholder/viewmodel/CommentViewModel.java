@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by frup66058 on 27/03/2018.
  */
 
-public class CommentViewModel implements Serializable,Parcelable {
+public class CommentViewModel implements Serializable {
     private int postId;
     private int id;
     private String name;
@@ -34,17 +34,7 @@ public class CommentViewModel implements Serializable,Parcelable {
         body = in.readString();
     }
 
-    public static final Creator<CommentViewModel> CREATOR = new Creator<CommentViewModel>() {
-        @Override
-        public CommentViewModel createFromParcel(Parcel in) {
-            return new CommentViewModel(in);
-        }
 
-        @Override
-        public CommentViewModel[] newArray(int size) {
-            return new CommentViewModel[size];
-        }
-    };
 
     public int getPostId() {
         return postId;
@@ -86,17 +76,5 @@ public class CommentViewModel implements Serializable,Parcelable {
         this.body = body;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(postId);
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(email);
-        parcel.writeString(body);
-    }
 }

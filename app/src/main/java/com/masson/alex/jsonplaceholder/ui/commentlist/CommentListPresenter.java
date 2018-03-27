@@ -22,15 +22,14 @@ public class CommentListPresenter implements ICommentRepository.ICommentReposito
 
     private List<Comment> comments;
 
-    public CommentListPresenter(View view) {
+    public CommentListPresenter(View view, ICommentRepository repository) {
         this.view = view;
-        this.repository = MyApplication.app().getCommentRepository();
+        this.repository = repository;
         comments = new ArrayList<>();
     }
 
     protected CommentListPresenter(Parcel in) {
         comments = in.createTypedArrayList(Comment.CREATOR);
-        repository = MyApplication.app().getCommentRepository();
     }
 
     public static final Creator<CommentListPresenter> CREATOR = new Creator<CommentListPresenter>() {
@@ -45,8 +44,9 @@ public class CommentListPresenter implements ICommentRepository.ICommentReposito
         }
     };
 
-    public void bind(View view) {
+    public void bind(View view, ICommentRepository repository) {
         this.view = view;
+        this.repository = repository;
         if (comments != null) {
             commentsForPost(this.comments);
         }

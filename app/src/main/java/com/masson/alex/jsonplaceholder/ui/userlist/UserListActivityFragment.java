@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
+import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.ui.userprofile.UserProfileActivity;
 import com.masson.alex.jsonplaceholder.viewmodel.UserLightViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
@@ -67,7 +68,7 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
 
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserListPresenter(this);
+        presenter = new UserListPresenter(this, MyApplication.app().getUserRepository());
         adapter = new UserRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -75,7 +76,7 @@ public class UserListActivityFragment extends Fragment implements UserListPresen
         //If restoring from state, load the list from the bundle
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
-            presenter.bind(this);
+            presenter.bind(this, MyApplication.app().getUserRepository());
         }
         else{
             onRefresh();

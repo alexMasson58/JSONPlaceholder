@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
+import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.ui.commentlist.CommentListActivity;
 import com.masson.alex.jsonplaceholder.ui.userlist.UserRecyclerAdapter;
 import com.masson.alex.jsonplaceholder.ui.userprofile.albums.UserProfileAlbumPresenter;
@@ -58,7 +59,7 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
+
         return inflater.inflate(R.layout.fragment_user_posts, container, false);
     }
 
@@ -68,10 +69,10 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         recyclerView.setHasFixedSize(true);
-
+        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new UserProfilePostPresenter(this);
+        presenter = new UserProfilePostPresenter(this, MyApplication.app().getPostRepository());
         adapter = new UserProfilePostRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -79,7 +80,7 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
         //If restoring from state, load the list from the bundle
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
-            presenter.bind(this);
+            presenter.bind(this, MyApplication.app().getPostRepository());
         } else {
             onRefresh();
         }
@@ -92,6 +93,13 @@ public class UserPostsFragment extends Fragment implements UserProfilePostPresen
             adapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(PRESENTER_STATE, presenter);
+    }
+
 
     @Override
     public void displayErrorMessage(String message) {

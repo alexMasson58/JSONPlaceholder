@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Created by alex on 25/03/2018.
  */
 
-public class UserViewModel implements Serializable, Parcelable {
+public class UserViewModel implements Serializable {
     private int id;
     private String name;
     private String username;
@@ -45,17 +45,7 @@ public class UserViewModel implements Serializable, Parcelable {
         company = in.readParcelable(Company.class.getClassLoader());
     }
 
-    public static final Creator<UserViewModel> CREATOR = new Creator<UserViewModel>() {
-        @Override
-        public UserViewModel createFromParcel(Parcel in) {
-            return new UserViewModel(in);
-        }
 
-        @Override
-        public UserViewModel[] newArray(int size) {
-            return new UserViewModel[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -121,20 +111,5 @@ public class UserViewModel implements Serializable, Parcelable {
         this.company = company;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(username);
-        parcel.writeString(email);
-        parcel.writeParcelable(address, i);
-        parcel.writeString(phone);
-        parcel.writeString(website);
-        parcel.writeParcelable(company, i);
-    }
 }

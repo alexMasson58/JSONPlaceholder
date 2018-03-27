@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.User;
 import com.masson.alex.jsonplaceholder.repository.user.IUserRepository;
-import com.masson.alex.jsonplaceholder.viewmodel.UserLightViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
 import java.util.ArrayList;
@@ -18,18 +17,17 @@ import java.util.List;
 
 public class UserListPresenter implements IUserRepository.IUserRepositoryListener , Parcelable{
 
-    private  IUserRepository userRepository;
+    private  IUserRepository repository;
     private View view;
     private List<User> userlist;
 
-    public UserListPresenter(View v) {
-        this.userRepository = MyApplication.app().getUserRepository();
+    public UserListPresenter(View v, IUserRepository repository) {
+        this.repository = repository;
         this.view = v;
         userlist = new ArrayList<>();
     }
 
     protected UserListPresenter(Parcel in) {
-        this.userRepository = MyApplication.app().getUserRepository();
         userlist = in.readArrayList(User.class.getClassLoader());
         if(userlist == null){
             userlist = new ArrayList<>();
@@ -37,8 +35,9 @@ public class UserListPresenter implements IUserRepository.IUserRepositoryListene
 
     }
 
-    public void bind(View view) {
+    public void bind(View view, IUserRepository repository) {
         this.view = view;
+        this.repository = repository;
         if(userlist!=null){
             userListUpdated(this.userlist);
         }
@@ -57,7 +56,7 @@ public class UserListPresenter implements IUserRepository.IUserRepositoryListene
     };
 
     public void getUserList() {
-        userRepository.getUserList(this);
+        repository.getUserList(this);
     }
 
 

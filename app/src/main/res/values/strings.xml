@@ -12,5 +12,9 @@
     <string name="commenter">Commenter</string>
     <string name="comments">Commentaires</string>
     <string name="photos">Photos</string>
-    <string name="title_activity_comment_list">CommentListActivity</string>
+    <string name="title_activity_comment_list">Commentaires</string>
+    <string name="email">email</string>
+    <string name="error_comment">Le commentaire ne doit pas être vide</string>
+    <string name="error_email_empty">L\'email ne doit pas etre vide</string>
+    <string name="error_email_invalid">Email invalide</string>
 </resources>

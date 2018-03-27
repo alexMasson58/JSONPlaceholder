@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <LinearLayout
+        android:id="@+id/lay_face"
+        android:layout_width="@dimen/circle_image"
+        android:layout_height="@dimen/circle_image"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="@drawable/round_primary_24dp"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_mail"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/ic_email_white_24px" />
+    </LinearLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tilEmail"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/lay_face"
+        app:layout_constraintTop_toTopOf="@+id/lay_face"
+        app:layout_constraintBottom_toBottomOf="@+id/lay_face">
+
+        <EditText
+            android:id="@+id/ed_mail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_Medium"
+
+            android:hint="@string/email"
+            android:textSize="@dimen/text_secondary"
+            android:inputType="textEmailAddress"
+
+
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+
+        android:layout_margin="@dimen/margin_Medium"
+        app:layout_constraintTop_toBottomOf="@+id/tilEmail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/iv_comment"
+        >
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilComment"
+>
+
+        <EditText
+            android:id="@+id/ed_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="top"
+            android:hint="@string/comments"
+            android:textColorHint="@color/secondary_text"
+            android:textSize="@dimen/text_secondary"
+            android:textColor="@color/primary_text"
+            android:inputType="textMultiLine"
+            android:background="@drawable/stroke_primary_dark_4dp"
+            />
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+
+
+    <ImageView
+        android:id="@+id/iv_comment"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_comment_white_24px"
+        android:tint="@color/primary_dark"
+
+        android:layout_margin="@dimen/margin_Medium"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_commenter"/>
+
+
+    <LinearLayout
+        android:id="@+id/btn_commenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_Small"
+        android:background="@drawable/round_primary_24dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/commenter"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_primary"
+            android:layout_margin="@dimen/margin_Small"
+
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

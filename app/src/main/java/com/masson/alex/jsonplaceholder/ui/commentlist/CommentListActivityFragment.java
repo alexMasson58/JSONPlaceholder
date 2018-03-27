@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
+import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.ui.userlist.UserListPresenter;
 import com.masson.alex.jsonplaceholder.ui.userlist.UserRecyclerAdapter;
 import com.masson.alex.jsonplaceholder.viewmodel.CommentViewModel;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -53,7 +56,7 @@ public class CommentListActivityFragment extends Fragment implements CommentList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        pvm = (PostViewModel) getArguments().getSerializable(POST_EXTRA);
+
         return inflater.inflate(R.layout.fragment_comment_list, container, false);
 
     }
@@ -63,10 +66,11 @@ public class CommentListActivityFragment extends Fragment implements CommentList
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         recyclerView.setHasFixedSize(true);
+        pvm = (PostViewModel) getArguments().getSerializable(POST_EXTRA);
 
         viewManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(viewManager);
-        presenter = new CommentListPresenter(this);
+        presenter = new CommentListPresenter(this, MyApplication.app().getCommentRepository());
         adapter = new CommentRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -74,7 +78,7 @@ public class CommentListActivityFragment extends Fragment implements CommentList
         //If restoring from state, load the list from the bundle
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
-            presenter.bind(this);
+            presenter.bind(this, MyApplication.app().getCommentRepository());
         }
         else{
             onRefresh();
@@ -126,4 +130,6 @@ public class CommentListActivityFragment extends Fragment implements CommentList
         Fragment frag = new CommentListActivityFragment();
         return frag;
     }
+
+
 }

@@ -66,16 +66,16 @@ public class UserProfileFragment extends Fragment implements UserProfilePresente
         return fragment;
     }
 
-    @Override
+   /* @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(PRESENTER_STATE, presenter);
     }
-
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
+
         return inflater.inflate(R.layout.fragment_user_profile, container, false);
 
 
@@ -87,15 +87,15 @@ public class UserProfileFragment extends Fragment implements UserProfilePresente
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
+        uvm = (UserViewModel) getArguments().getSerializable(USERPROFILE_EXTRA);
 
         presenter = new UserProfilePresenter(this, uvm);
 
         //If restoring from state, load the list from the bundle
-        if (savedInstanceState != null) {
+       /* if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
-        }
-        presenter.bind(this);
+        }*/
+        /*presenter.bind(this, uvm);*/
 
     }
 

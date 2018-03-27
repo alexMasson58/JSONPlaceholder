@@ -17,19 +17,18 @@ import java.util.List;
 
 public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.IAlbumRepositoryListener {
 
-    IAlbumRepository albumRepository;
+    IAlbumRepository repository;
     List<Album> albums;
     private View view;
 
-    public UserProfileAlbumPresenter(View view) {
+    public UserProfileAlbumPresenter(View view, IAlbumRepository repository) {
         this.view = view;
-        albumRepository = MyApplication.app().getAlbumRepository();
+        this.repository = repository;
         albums = new ArrayList<>();
     }
 
     protected UserProfileAlbumPresenter(Parcel in) {
         albums = in.createTypedArrayList(Album.CREATOR);
-        albumRepository = MyApplication.app().getAlbumRepository();
     }
 
     public static final Creator<UserProfileAlbumPresenter> CREATOR = new Creator<UserProfileAlbumPresenter>() {
@@ -44,8 +43,9 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
         }
     };
 
-    public void bind(View view) {
+    public void bind(View view, IAlbumRepository repository) {
         this.view = view;
+        this.repository = repository;
         if (albums != null) {
             albumsForUser(this.albums);
         }
@@ -76,7 +76,7 @@ public class UserProfileAlbumPresenter implements Parcelable, IAlbumRepository.I
     }
 
     public void getUserAlbums(int userid) {
-        albumRepository.getAlbumsListForUser(userid, this);
+        repository.getAlbumsListForUser(userid, this);
     }
 
     @Override

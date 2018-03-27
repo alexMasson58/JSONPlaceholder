@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.masson.alex.jsonplaceholder.R;
@@ -43,6 +44,7 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         }
     };
+    private Toolbar toolbar;
 
 
     @Override
@@ -55,6 +57,8 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -77,6 +81,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     void postsFragment() {
+        toolbar.setTitle(getString(R.string.title_posts));
         Fragment frag = UserPostsFragment.newInstance();
         frag.setArguments(getIntent().getExtras());
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -85,6 +90,8 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     void profileFragment() {
+        toolbar.setTitle(getString(R.string.title_profile));
+
         Fragment frag = UserProfileFragment.newInstance();
         frag.setArguments(getIntent().getExtras());
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -93,6 +100,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void albumsFragment() {
+        toolbar.setTitle(getString(R.string.title_albums));
         Fragment frag = UserAlbumsFragment.newInstance();
         frag.setArguments(getIntent().getExtras());
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

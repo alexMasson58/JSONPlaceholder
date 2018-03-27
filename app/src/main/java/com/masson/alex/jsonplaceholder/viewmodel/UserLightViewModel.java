@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by alex on 25/03/2018.
  */
 
-public class UserLightViewModel implements Serializable, Parcelable{
+public class UserLightViewModel implements Serializable{
 
 
     private String name;
@@ -30,17 +30,6 @@ public class UserLightViewModel implements Serializable, Parcelable{
         email = in.readString();
     }
 
-    public static final Creator<UserLightViewModel> CREATOR = new Creator<UserLightViewModel>() {
-        @Override
-        public UserLightViewModel createFromParcel(Parcel in) {
-            return new UserLightViewModel(in);
-        }
-
-        @Override
-        public UserLightViewModel[] newArray(int size) {
-            return new UserLightViewModel[size];
-        }
-    };
 
     public String getName() {
         return name;
@@ -54,15 +43,5 @@ public class UserLightViewModel implements Serializable, Parcelable{
         return email;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeString(username);
-        parcel.writeString(email);
-    }
 }
