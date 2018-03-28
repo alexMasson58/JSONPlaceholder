@@ -9,5 +9,11 @@ import java.util.List;
  */
 
 public interface IPhotoRepository {
-    List<Photo> getPhotoListForAlbum(int albumid);
+    interface IPhotoRepositoryListener {
+        void photosForAlbum(List<Photo> photos);
+
+        void onError(String message);
+    }
+
+    void getPhotoListForAlbum(int albumid, IPhotoRepositoryListener listener);
 }

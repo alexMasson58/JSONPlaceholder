@@ -26,13 +26,7 @@ public class CommentViewModel implements Serializable {
         this.body = c.getBody();
     }
 
-    protected CommentViewModel(Parcel in) {
-        postId = in.readInt();
-        id = in.readInt();
-        name = in.readString();
-        email = in.readString();
-        body = in.readString();
-    }
+
 
 
 

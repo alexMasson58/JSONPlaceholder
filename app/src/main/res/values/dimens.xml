@@ -14,4 +14,6 @@
     <dimen name="circle_image">48dp</dimen>
     <dimen name="margin_Medium">16dp</dimen>
     <dimen name="margin_Small">8dp</dimen>
+    <dimen name="cell_photo">256dp</dimen>
+    <dimen name="cell_photo_thumb">150dp</dimen>
 </resources>

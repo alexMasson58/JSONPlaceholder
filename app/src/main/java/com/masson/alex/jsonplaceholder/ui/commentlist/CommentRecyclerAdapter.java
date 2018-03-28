@@ -30,10 +30,10 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
         void onItemClicked(int position);
     }
 
-    private final UserRecyclerAdapter.ItemClickListener listener;
+    private final ItemClickListener listener;
     private final List<CommentViewModel> commentList = new ArrayList<>();
 
-    public CommentRecyclerAdapter(UserRecyclerAdapter.ItemClickListener listener) {
+    public CommentRecyclerAdapter(ItemClickListener listener) {
         this.listener = listener;
 
     }

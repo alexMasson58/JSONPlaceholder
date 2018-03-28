@@ -24,12 +24,6 @@ public class UserLightViewModel implements Serializable{
         this.email = u.getEmail();
     }
 
-    protected UserLightViewModel(Parcel in) {
-        name = in.readString();
-        username = in.readString();
-        email = in.readString();
-    }
-
 
     public String getName() {
         return name;

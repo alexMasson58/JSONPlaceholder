@@ -8,6 +8,7 @@ import com.masson.alex.jsonplaceholder.repository.comment.CommentRepositoryImpl;
 import com.masson.alex.jsonplaceholder.repository.comment.CommentRepositoryRetrofit;
 import com.masson.alex.jsonplaceholder.repository.comment.ICommentRepository;
 import com.masson.alex.jsonplaceholder.repository.photo.IPhotoRepository;
+import com.masson.alex.jsonplaceholder.repository.photo.PhotoRepositoryImpl;
 import com.masson.alex.jsonplaceholder.repository.post.IPostRepository;
 import com.masson.alex.jsonplaceholder.repository.post.PostRepositoryImpl;
 import com.masson.alex.jsonplaceholder.repository.user.IUserRepository;
@@ -19,24 +20,26 @@ import com.masson.alex.jsonplaceholder.repository.user.UserRepositoryImpl;
 
 public class MyApplication extends Application {
 
-    private static MyApplication INSTANCE ;
+    private static MyApplication INSTANCE;
     private IUserRepository userRepository;
     private IAlbumRepository albumRepository;
     private IPostRepository postRepository;
     private IPhotoRepository photoRepository;
     private ICommentRepository commentRepository;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
-        //TODO : init repositories
+        commentRepository = new CommentRepositoryImpl();
         userRepository = new UserRepositoryImpl();
         albumRepository = new AlbumRepositoryImpl();
-        postRepository =  new PostRepositoryImpl();
-        commentRepository = new CommentRepositoryImpl();
+        postRepository = new PostRepositoryImpl();
+        photoRepository = new PhotoRepositoryImpl();
     }
 
-    public static MyApplication app(){
+    public static MyApplication app() {
         return INSTANCE;
     }
 

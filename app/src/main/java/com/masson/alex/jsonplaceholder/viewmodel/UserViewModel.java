@@ -34,16 +34,7 @@ public class UserViewModel implements Serializable {
         this.company = u.getCompany();
     }
 
-    protected UserViewModel(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        username = in.readString();
-        email = in.readString();
-        address = in.readParcelable(Address.class.getClassLoader());
-        phone = in.readString();
-        website = in.readString();
-        company = in.readParcelable(Company.class.getClassLoader());
-    }
+
 
 
 

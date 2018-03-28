@@ -25,12 +25,7 @@ public class PostViewModel implements Serializable{
         this.body = u.getBody();
     }
 
-    protected PostViewModel(Parcel in) {
-        id = in.readInt();
-        userId = in.readInt();
-        title = in.readString();
-        body = in.readString();
-    }
+
 
 
 

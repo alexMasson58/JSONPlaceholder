@@ -1,6 +1,7 @@
 package com.masson.alex.jsonplaceholder.ui.userprofile.albums;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 
 import com.masson.alex.jsonplaceholder.R;
 import com.masson.alex.jsonplaceholder.application.MyApplication;
+import com.masson.alex.jsonplaceholder.ui.photolist.PhotoListActivity;
 import com.masson.alex.jsonplaceholder.viewmodel.AlbumViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.UserViewModel;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +33,7 @@ public class UserAlbumsFragment extends Fragment implements UserProfileAlbumPres
 
     public static final String PRESENTER_STATE = "PRESENTER_STATE";
     public static final String USERPROFILE_EXTRA = "USERPROFILE_EXTRA";
+    public static final String ALBUM_EXTRAS = "ALBUM_EXTRAS";
     @BindView(R.id.rec_albumlist)
     RecyclerView recyclerView;
 
@@ -123,6 +127,8 @@ public class UserAlbumsFragment extends Fragment implements UserProfileAlbumPres
 
     @Override
     public void displayAlbum(AlbumViewModel album) {
-        Toast.makeText(getContext(), "album : " + album.getTitle(), Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this.getContext(), PhotoListActivity.class);
+        i.putExtra(ALBUM_EXTRAS, (Serializable) album);
+        getContext().startActivity(i);
     }
 }
