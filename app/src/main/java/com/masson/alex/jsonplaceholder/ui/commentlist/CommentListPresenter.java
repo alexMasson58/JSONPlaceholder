@@ -3,7 +3,6 @@ package com.masson.alex.jsonplaceholder.ui.commentlist;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.Comment;
 import com.masson.alex.jsonplaceholder.repository.comment.ICommentRepository;
 import com.masson.alex.jsonplaceholder.viewmodel.CommentViewModel;
@@ -63,6 +62,11 @@ public class CommentListPresenter implements ICommentRepository.ICommentReposito
             }
         }
         view.commentListUpdated(res);
+    }
+
+    @Override
+    public void commentSuccess(Comment comment) {
+
     }
 
     @Override

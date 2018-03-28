@@ -18,29 +18,14 @@
 
         android:padding="@dimen/cell_padding_horizontal">
 
-        <LinearLayout
-            android:id="@+id/lay_icon"
-            android:layout_width="@dimen/circle_image"
-            android:layout_height="@dimen/circle_image"
-            android:layout_margin="@dimen/fab_margin"
-            android:gravity="center"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/lay_face">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_comment_white_24px"
-                android:tint="@color/primary_dark"/>
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="@dimen/fab_size"
             android:layout_height="@dimen/fab_size"
             android:background="@drawable/round_accent_16dp"
             android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/lay_icon"
-            app:layout_constraintRight_toRightOf="@+id/lay_icon">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
             <TextView
                 android:id="@+id/id"
@@ -51,77 +36,66 @@
                 android:textSize="@dimen/text_secondary" />
         </LinearLayout>
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/lay_face"
-            android:layout_width="@dimen/circle_image"
-            android:layout_height="@dimen/circle_image"
-            android:layout_margin="@dimen/fab_margin"
-            android:background="@drawable/round_primary_24dp"
-            android:gravity="center"
-            app:layout_constraintLeft_toRightOf="@+id/lay_icon"
-            app:layout_constraintRight_toRightOf="parent">
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_Small"
+            android:tint="@color/primary_dark"
+            app:layout_constraintLeft_toLeftOf="parent"
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_face_white_24px" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_face_white_24px" />
+
 
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_Small"
             android:text="email@email.com"
             android:textColor="@color/secondary_text"
+
             android:textSize="@dimen/text_secondary"
-
-
-            android:layout_marginTop="@dimen/margin_Small"
-            app:layout_constraintLeft_toLeftOf="@+id/lay_face"
-            app:layout_constraintRight_toRightOf="@+id/lay_face"
-            app:layout_constraintTop_toBottomOf="@+id/lay_icon"
-            />
+            app:layout_constraintBottom_toBottomOf="@+id/lay_face"
+            app:layout_constraintLeft_toRightOf="@+id/lay_face"
+            app:layout_constraintTop_toTopOf="@+id/lay_face" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_Small"
             android:text="name"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/text_primary"
 
-            android:layout_marginTop="@dimen/margin_Small"
+            android:textSize="@dimen/text_primary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/email" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/primary_dark"
-
             android:layout_margin="@dimen/margin_Small"
+
+            android:background="@color/primary_dark"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <TextView
             android:id="@+id/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_Small"
             android:text="est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
             android:textColor="@color/secondary_text"
             android:textSize="@dimen/text_secondary"
-            android:layout_margin="@dimen/margin_Small"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 
     </android.support.constraint.ConstraintLayout>

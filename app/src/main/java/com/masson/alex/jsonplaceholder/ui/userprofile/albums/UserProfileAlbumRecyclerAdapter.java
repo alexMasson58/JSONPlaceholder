@@ -27,11 +27,10 @@ public class UserProfileAlbumRecyclerAdapter extends RecyclerView.Adapter<UserPr
     }
 
     private final ItemClickListener listener;
-    private List<AlbumViewModel> albumList;
+    private final List<AlbumViewModel> albumList  = new ArrayList<>();;
 
     public UserProfileAlbumRecyclerAdapter(ItemClickListener listener) {
         this.listener = listener;
-        albumList = new ArrayList<>();
 
     }
 
@@ -59,7 +58,8 @@ public class UserProfileAlbumRecyclerAdapter extends RecyclerView.Adapter<UserPr
     }
 
     public void setAlbumList(List<AlbumViewModel> albumList) {
-        this.albumList = albumList;
+        this.albumList.clear();
+        this.albumList.addAll(albumList);
         notifyDataSetChanged();
     }
 

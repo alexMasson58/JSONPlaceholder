@@ -10,11 +10,17 @@ import java.util.List;
 
 public interface ICommentRepository {
 
+
     interface ICommentRepositoryListener {
         void commentsForPost(List<Comment> comments);
 
+        void commentSuccess(Comment comment);
+
         void onError(String message);
     }
+
+
+    void postComment(int postid, int id, String name, String email, String comment, ICommentRepositoryListener listener);
 
     void getCommentListForPost(int postid, ICommentRepositoryListener listener);
 }

@@ -26,10 +26,9 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     }
 
     private final ItemClickListener listener;
-    private List<UserViewModel> userList;
+    private final List<UserViewModel> userList = new ArrayList<>();
 
     public UserRecyclerAdapter(ItemClickListener listener) {
-        userList = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -43,7 +42,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         UserViewModel uvm = userList.get(position);
-        holder.setId(uvm.getId()+"");
+        holder.setId(uvm.getId() + "");
         holder.setName(uvm.getName());
         holder.setUsername(uvm.getUsername());
         holder.setEmail(uvm.getEmail());
@@ -51,7 +50,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
         holder.setPhone(uvm.getPhone());
         holder.setStreet(uvm.getAddress().getStreet());
         holder.setSuite(uvm.getAddress().getSuite());
-        holder.setCityZip(uvm.getAddress().getCity(),uvm.getAddress().getZipcode());
+        holder.setCityZip(uvm.getAddress().getCity(), uvm.getAddress().getZipcode());
         holder.setCompagny(uvm.getCompany().getName());
         holder.setCatchPhrase(uvm.getCompany().getCatchPhrase());
         holder.setBs(uvm.getCompany().getBs());
@@ -71,7 +70,8 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
     }
 
     public void setUserList(List<UserViewModel> userList) {
-        this.userList = userList;
+        this.userList.clear();
+        this.userList.addAll(userList);
         this.notifyDataSetChanged();
     }
 
@@ -126,7 +126,7 @@ public class UserRecyclerAdapter extends RecyclerView.Adapter<UserRecyclerAdapte
             ButterKnife.bind(this, itemView);
         }
 
-        void setId(String id){
+        void setId(String id) {
             this.id.setText(id);
         }
 

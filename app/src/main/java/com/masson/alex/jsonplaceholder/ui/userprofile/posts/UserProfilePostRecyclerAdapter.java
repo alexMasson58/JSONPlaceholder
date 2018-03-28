@@ -29,11 +29,10 @@ public class UserProfilePostRecyclerAdapter extends RecyclerView.Adapter<UserPro
     }
 
     private final ItemClickListener listener;
-    private List<PostViewModel> postList;
+    private final List<PostViewModel> postList = new ArrayList<>();
 
     public UserProfilePostRecyclerAdapter(ItemClickListener listener) {
         this.listener = listener;
-        this.postList = new ArrayList<>();
     }
 
     @NonNull
@@ -60,7 +59,8 @@ public class UserProfilePostRecyclerAdapter extends RecyclerView.Adapter<UserPro
     }
 
     public void setPostList(List<PostViewModel> postList) {
-        this.postList = postList;
+        this.postList.clear();
+        this.postList.addAll(postList);
         notifyDataSetChanged();
     }
 

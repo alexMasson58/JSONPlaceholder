@@ -17,4 +17,6 @@
     <string name="error_comment">Le commentaire ne doit pas être vide</string>
     <string name="error_email_empty">L\'email ne doit pas etre vide</string>
     <string name="error_email_invalid">Email invalide</string>
+    <string name="name">Nom</string>
+    <string name="error_name">Le nom ne doit pas être vide</string>
 </resources>

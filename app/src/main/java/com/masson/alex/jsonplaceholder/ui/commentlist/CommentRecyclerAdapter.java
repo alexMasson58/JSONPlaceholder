@@ -26,17 +26,16 @@ import butterknife.ButterKnife;
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecyclerAdapter.ViewHolder> {
 
 
-
     public interface ItemClickListener {
         void onItemClicked(int position);
     }
 
     private final UserRecyclerAdapter.ItemClickListener listener;
-    List<CommentViewModel> commentList;
+    private final List<CommentViewModel> commentList = new ArrayList<>();
 
     public CommentRecyclerAdapter(UserRecyclerAdapter.ItemClickListener listener) {
         this.listener = listener;
-        this.commentList = new ArrayList<>();
+
     }
 
     @NonNull
@@ -56,7 +55,8 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     }
 
     public void setCommentList(List<CommentViewModel> commentList) {
-        this.commentList = commentList;
+        this.commentList.clear();
+        this.commentList.addAll(commentList);
         notifyDataSetChanged();
     }
 
