@@ -19,6 +19,6 @@
     <string name="error_email_invalid">Email invalide</string>
     <string name="name">Nom</string>
     <string name="error_name">Le nom ne doit pas être vide</string>
-    <string name="title_activity_photo_list">PhotoListActivity</string>
+    <string name="title_activity_photo_list">Photos</string>
     <string name="title">Titre</string>
 </resources>
