@@ -14,6 +14,8 @@ import com.masson.alex.jsonplaceholder.application.MyApplication;
 import com.masson.alex.jsonplaceholder.model.Comment;
 import com.masson.alex.jsonplaceholder.viewmodel.PostViewModel;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -83,6 +85,8 @@ public class CommentFragment extends DialogFragment implements CommentFragmentPr
 
     @Override
     public void commentSuccess(Comment comment) {
+
+        EventBus.getDefault().post(new CommentEvent());
         dismiss();
     }
 

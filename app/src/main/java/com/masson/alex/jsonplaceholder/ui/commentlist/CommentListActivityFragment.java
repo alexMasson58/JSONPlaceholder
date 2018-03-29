@@ -20,6 +20,10 @@ import com.masson.alex.jsonplaceholder.ui.userlist.UserRecyclerAdapter;
 import com.masson.alex.jsonplaceholder.viewmodel.CommentViewModel;
 import com.masson.alex.jsonplaceholder.viewmodel.PostViewModel;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,8 +49,10 @@ public class CommentListActivityFragment extends Fragment implements CommentList
     private CommentRecyclerAdapter adapter;
 
     private PostViewModel pvm;
+
     public CommentListActivityFragment() {
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -59,6 +65,18 @@ public class CommentListActivityFragment extends Fragment implements CommentList
 
         return inflater.inflate(R.layout.fragment_comment_list, container, false);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -79,8 +97,7 @@ public class CommentListActivityFragment extends Fragment implements CommentList
         if (savedInstanceState != null) {
             presenter = savedInstanceState.getParcelable(PRESENTER_STATE);
             presenter.bind(this, MyApplication.app().getCommentRepository());
-        }
-        else{
+        } else {
             onRefresh();
         }
     }
@@ -130,6 +147,13 @@ public class CommentListActivityFragment extends Fragment implements CommentList
         Fragment frag = new CommentListActivityFragment();
         return frag;
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CommentEvent event) {
+        onRefresh();
+    }
+
+    ;
 
 
 }

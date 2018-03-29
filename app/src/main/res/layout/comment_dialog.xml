@@ -61,10 +61,11 @@
             android:id="@+id/ed_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="1"
-            android:inputType=""
-
             android:hint="@string/name"
+
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:inputType="text"
             android:textColor="@color/primary_text"
             android:textColorHint="@color/secondary_text"
             android:textSize="@dimen/text_secondary" />
@@ -84,7 +85,6 @@
             android:id="@+id/ed_comment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:gravity="top"
             android:hint="@string/comments"
             android:inputType="textMultiLine"
